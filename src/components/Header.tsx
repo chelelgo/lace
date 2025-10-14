@@ -92,8 +92,8 @@ const Header = () => {
                       <span>Total:</span>
                       <span>${getTotalPrice().toFixed(2)}</span>
                     </div>
-                    <Button className="w-full" size="lg">
-                      Checkout
+                    <Button className="w-full" size="lg" asChild>
+                      <a href="/checkout">Proceed to Checkout</a>
                     </Button>
                   </div>
                 </>
