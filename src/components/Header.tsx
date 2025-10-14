@@ -18,8 +18,11 @@ const Header = () => {
           <a href="#products" className="text-sm font-medium transition-colors hover:text-accent">
             Shop
           </a>
-          <a href="#about" className="text-sm font-medium transition-colors hover:text-accent">
+          <a href="/about" className="text-sm font-medium transition-colors hover:text-accent">
             About
+          </a>
+          <a href="/events" className="text-sm font-medium transition-colors hover:text-accent">
+            Events
           </a>
           <a href="#contact" className="text-sm font-medium transition-colors hover:text-accent">
             Contact
