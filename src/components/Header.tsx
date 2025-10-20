@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useCart } from '@/contexts/CartContext';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Separator } from '@/components/ui/separator';
+import laceLogo from '@/assets/lace-logo.png';
 
 const Header = () => {
   const { items, getTotalItems, getTotalPrice, updateQuantity, removeFromCart } = useCart();
@@ -11,7 +12,7 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-20 items-center justify-between px-6 md:px-12">
         <a href="/" className="flex items-center space-x-2">
-          <h1 className="text-3xl font-bold tracking-tighter uppercase">Lace</h1>
+          <img src={laceLogo} alt="Lace" className="h-12 w-auto" />
         </a>
         
         <nav className="hidden md:flex items-center space-x-10">

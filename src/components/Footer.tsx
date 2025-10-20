@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Facebook, Instagram, Twitter } from 'lucide-react';
+import laceLogo from '@/assets/lace-logo.png';
 
 const Footer = () => {
   return (
@@ -9,7 +10,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Brand Section */}
           <div>
-            <h3 className="text-2xl font-bold mb-4">Lace</h3>
+            <img src={laceLogo} alt="Lace" className="h-10 w-auto mb-4" />
             <p className="text-sm text-muted-foreground mb-4">
               Premium footwear designed for comfort and style. Step into excellence with every pair.
             </p>
