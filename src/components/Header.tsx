@@ -9,22 +9,22 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
+      <div className="container flex h-20 items-center justify-between px-6 md:px-12">
         <a href="/" className="flex items-center space-x-2">
-          <h1 className="text-2xl font-bold tracking-tight">Lace</h1>
+          <h1 className="text-3xl font-bold tracking-tighter uppercase">Lace</h1>
         </a>
         
-        <nav className="hidden md:flex items-center space-x-8">
-          <a href="#products" className="text-sm font-medium transition-colors hover:text-accent">
+        <nav className="hidden md:flex items-center space-x-10">
+          <a href="#products" className="text-sm font-medium transition-opacity hover:opacity-60 uppercase tracking-wide">
             Shop
           </a>
-          <a href="/about" className="text-sm font-medium transition-colors hover:text-accent">
+          <a href="/about" className="text-sm font-medium transition-opacity hover:opacity-60 uppercase tracking-wide">
             About
           </a>
-          <a href="/events" className="text-sm font-medium transition-colors hover:text-accent">
+          <a href="/events" className="text-sm font-medium transition-opacity hover:opacity-60 uppercase tracking-wide">
             Events
           </a>
-          <a href="#contact" className="text-sm font-medium transition-colors hover:text-accent">
+          <a href="#contact" className="text-sm font-medium transition-opacity hover:opacity-60 uppercase tracking-wide">
             Contact
           </a>
         </nav>

@@ -3,28 +3,25 @@ import heroImage from '@/assets/hero-shoes.jpg';
 
 const Hero = () => {
   return (
-    <section className="relative w-full h-[70vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+    <section className="relative w-full h-screen min-h-[600px] flex items-center justify-center overflow-hidden bg-background">
       <div 
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center opacity-40"
         style={{ backgroundImage: `url(${heroImage})` }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-background/80 to-background/40" />
-      </div>
+      />
       
-      <div className="container relative z-10 max-w-4xl text-center">
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 animate-in fade-in slide-in-from-bottom-4 duration-1000">
-          Step Into Style
-        </h1>
-        <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-150">
-          Discover the perfect blend of comfort and design with Lace's curated collection of premium footwear.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-300">
-          <Button size="lg" className="text-base px-8">
-            <a href="#products">Shop Now</a>
-          </Button>
-          <Button size="lg" variant="outline" className="text-base px-8">
-            Learn More
-          </Button>
+      <div className="container relative z-10 max-w-6xl px-6 md:px-12">
+        <div className="max-w-3xl">
+          <h1 className="mb-6 animate-in fade-in slide-in-from-bottom-4 duration-1000 uppercase">
+            Where Style<br />Meets Street
+          </h1>
+          <p className="text-xl md:text-2xl mb-10 max-w-xl animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-150 font-light">
+            Premium footwear for those who move with purpose.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-300">
+            <Button size="lg" className="text-base px-12 py-6 h-auto font-medium">
+              <a href="#products">Shop Now</a>
+            </Button>
+          </div>
         </div>
       </div>
     </section>
