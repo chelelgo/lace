@@ -9,33 +9,33 @@ const Header = () => {
   const { items, getTotalItems, getTotalPrice, updateQuantity, removeFromCart } = useCart();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-xl">
       <div className="container flex h-20 items-center justify-between px-6 md:px-12">
-        <a href="/" className="flex items-center space-x-2">
-          <img src={laceLogo} alt="Lace" className="h-12 w-auto" />
+        <a href="/" className="flex items-center space-x-2 group">
+          <img src={laceLogo} alt="Lace" className="h-14 w-auto transition-transform group-hover:scale-105" />
         </a>
         
-        <nav className="hidden md:flex items-center space-x-10">
-          <a href="#products" className="text-sm font-medium transition-opacity hover:opacity-60 uppercase tracking-wide">
+        <nav className="hidden md:flex items-center space-x-8 lg:space-x-12">
+          <a href="#products" className="text-sm font-bold transition-colors hover:text-accent uppercase tracking-wider relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-accent after:transition-all hover:after:w-full">
             Shop
           </a>
-          <a href="/about" className="text-sm font-medium transition-opacity hover:opacity-60 uppercase tracking-wide">
+          <a href="/about" className="text-sm font-bold transition-colors hover:text-accent uppercase tracking-wider relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-accent after:transition-all hover:after:w-full">
             About
           </a>
-          <a href="/events" className="text-sm font-medium transition-opacity hover:opacity-60 uppercase tracking-wide">
+          <a href="/events" className="text-sm font-bold transition-colors hover:text-accent uppercase tracking-wider relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-accent after:transition-all hover:after:w-full">
             Events
           </a>
-          <a href="#contact" className="text-sm font-medium transition-opacity hover:opacity-60 uppercase tracking-wide">
+          <a href="#contact" className="text-sm font-bold transition-colors hover:text-accent uppercase tracking-wider relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-accent after:transition-all hover:after:w-full">
             Contact
           </a>
         </nav>
 
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="relative">
-              <ShoppingCart className="h-5 w-5" />
+            <Button variant="ghost" size="icon" className="relative hover:bg-accent/10">
+              <ShoppingCart className="h-6 w-6" />
               {getTotalItems() > 0 && (
-                <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-accent text-accent-foreground text-xs flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-accent text-white text-xs font-bold flex items-center justify-center">
                   {getTotalItems()}
                 </span>
               )}
