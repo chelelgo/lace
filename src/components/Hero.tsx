@@ -24,7 +24,7 @@ const Hero = () => {
             <Button size="lg" className="text-base md:text-lg px-12 py-7 h-auto font-bold uppercase tracking-wider bg-accent hover:bg-accent/90 text-accent-foreground">
               Shop the Drop
             </Button>
-            <Button size="lg" variant="outline" className="text-base md:text-lg px-12 py-7 h-auto font-bold uppercase tracking-wider border-2 border-white text-white hover:bg-white hover:text-black">
+            <Button size="lg" variant="outline" className="text-base md:text-lg px-12 py-7 h-auto font-bold uppercase tracking-wider border-2 border-black bg-white text-black hover:bg-black hover:text-white">
               Join the Movement
             </Button>
           </div>

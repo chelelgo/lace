@@ -21,16 +21,9 @@ const BrandCatalog = ({ brand }: BrandCatalogProps) => {
             key={index}
             className="group border border-border bg-card hover:border-accent transition-all duration-300 overflow-hidden"
           >
-            {/* Product Image Placeholder */}
+            {/* Product Image */}
             <div className="aspect-square bg-muted relative overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center p-6">
-                  <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">
-                    {brand.name}
-                  </p>
-                  <p className="font-bold text-sm">{model.model}</p>
-                </div>
-              </div>
+              <img src={model.image} alt={model.model} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               <div className="absolute top-4 right-4">
                 <span 
                   className="text-xs font-bold uppercase px-2 py-1 bg-background/90 backdrop-blur-sm"

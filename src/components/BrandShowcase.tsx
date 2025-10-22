@@ -36,10 +36,13 @@ const BrandShowcase = ({ brand }: BrandShowcaseProps) => {
           {brand.featuredModels.map((model, index) => (
             <div 
               key={index} 
-              className="group border border-border bg-card p-6 hover:border-accent transition-all duration-300"
+              className="group border border-border bg-card overflow-hidden hover:border-accent transition-all duration-300"
               style={{ '--accent': brand.accentColor } as React.CSSProperties}
             >
-              <div className="space-y-4">
+              <div className="aspect-square overflow-hidden">
+                <img src={model.image} alt={model.model} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              </div>
+              <div className="p-6 space-y-4">
                 <div className="h-1 w-12 group-hover:w-20 transition-all duration-300" 
                      style={{ backgroundColor: brand.accentColor }} />
                 <h4 className="text-xl font-bold uppercase">{model.model}</h4>
