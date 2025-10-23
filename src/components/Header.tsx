@@ -12,7 +12,7 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-xl">
       <div className="container flex h-20 items-center justify-between px-6 md:px-12">
         <a href="/" className="flex items-center space-x-2 group">
-          <img src={laceLogo} alt="Lace" className="h-14 w-auto transition-transform group-hover:scale-105" />
+          <img src={laceLogo} alt="Lace" className="h-20 w-auto transition-transform group-hover:scale-105" />
         </a>
         
         <nav className="hidden md:flex items-center space-x-8 lg:space-x-12">
