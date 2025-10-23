@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand Section */}
           <div>
-            <img src={laceLogo} alt="Lace" className="h-12 w-auto mb-6 brightness-0 invert" />
+            <img src={laceLogo} alt="Lace" className="h-20 w-auto mb-6 brightness-0 invert" />
             <p className="text-sm text-white/70 mb-6 leading-relaxed">
               The thread that ties culture together. Premium sneakers and streetwear for those who move with purpose.
             </p>
