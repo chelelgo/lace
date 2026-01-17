@@ -29,7 +29,7 @@ const BrandCatalog = ({ brand }: BrandCatalogProps) => {
                   className="text-xs font-bold uppercase px-2 py-1 bg-background/90 backdrop-blur-sm"
                   style={{ color: brand.accentColor }}
                 >
-                  {model.priceBand}
+                  {model.priceKsh ? `Ksh ${model.priceKsh.toLocaleString()}` : model.priceBand}
                 </span>
               </div>
             </div>
