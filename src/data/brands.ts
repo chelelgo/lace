@@ -1,22 +1,9 @@
-import jordanShatteredBackboard from '@/assets/jordan/jordan-shattered-backboard.jpg';
-import jordanBlackToe from '@/assets/jordan/jordan-black-toe.jpg';
-import jordanChicago from '@/assets/jordan/jordan-chicago.jpg';
-import jordanBred from '@/assets/jordan/jordan-bred.jpg';
-import jordanPatentBred from '@/assets/jordan/jordan-patent-bred.jpg';
-import jordanBlackWhite from '@/assets/jordan/jordan-black-white.jpg';
-import jordanTaxi from '@/assets/jordan/jordan-taxi.jpg';
-import jordanUncToe from '@/assets/jordan/jordan-unc-toe.jpg';
-import jordanUniversityBlue from '@/assets/jordan/jordan-university-blue.jpg';
-import jordanDarkMocha from '@/assets/jordan/jordan-dark-mocha.jpg';
-import jordanTravisScott from '@/assets/jordan/jordan-travis-scott.jpg';
-
 export interface BrandModel {
   model: string;
   variant: string;
   descriptor: string;
   audience: string;
   priceBand: 'Entry' | 'Mid' | 'Premium';
-  priceKsh?: number;
   image: string;
 }
 
@@ -39,141 +26,118 @@ export const brands: Brand[] = [
     accentColor: 'hsl(0, 100%, 45%)',
     featuredModels: [
       {
-        model: 'Jordan 1 Retro High OG',
-        variant: 'Shattered Backboard',
-        descriptor: 'Iconic orange and black colorway',
+        model: 'Air Jordan 1',
+        variant: 'High / Mid / Low / Retro OG',
+        descriptor: 'Iconic silhouette that launched the culture',
         audience: 'Collectors & streetwear',
-        priceBand: 'Mid',
-        priceKsh: 3500,
-        image: jordanShatteredBackboard
+        priceBand: 'Premium',
+        image: 'https://images.unsplash.com/photo-1556906781-9a412961c28c?w=800&h=800&fit=crop'
       },
       {
-        model: 'Jordan 1 Retro High OG',
-        variant: 'Chicago',
-        descriptor: 'The original MJ colorway',
+        model: 'Air Jordan 3',
+        variant: 'OG / Retro (Cement, Fire Red)',
+        descriptor: 'Tumbled leather + elephant print, MJ era classic',
         audience: 'Collectors',
-        priceBand: 'Mid',
-        priceKsh: 3500,
-        image: jordanChicago
+        priceBand: 'Premium',
+        image: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=800&h=800&fit=crop'
       },
       {
-        model: 'Jordan 1 Retro High OG',
-        variant: 'Bred',
-        descriptor: 'Classic black and red heritage',
+        model: 'Air Jordan 4',
+        variant: 'OG / Retro (White, Bred)',
+        descriptor: 'Mesh + visible air, street staple',
         audience: 'Sneakerheads',
-        priceBand: 'Mid',
-        priceKsh: 3500,
-        image: jordanBred
+        priceBand: 'Premium',
+        image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&h=800&fit=crop'
       },
       {
-        model: 'Jordan 1 Retro High OG SP',
-        variant: 'Travis Scott Mocha',
-        descriptor: 'Coveted collaboration with reverse swoosh',
+        model: 'Air Jordan 11',
+        variant: 'Concord / Bred / Cool Grey',
+        descriptor: 'Patent leather, luxury performance crossover',
         audience: 'Hype collectors',
-        priceBand: 'Mid',
-        priceKsh: 3500,
-        image: jordanTravisScott
+        priceBand: 'Premium',
+        image: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=800&h=800&fit=crop'
       }
     ],
     allModels: [
       {
-        model: 'Jordan 1 Retro High OG',
-        variant: 'Shattered Backboard',
-        descriptor: 'Iconic orange and black colorway',
+        model: 'Air Jordan 1',
+        variant: 'High / Mid / Low / Retro OG',
+        descriptor: 'Iconic silhouette that launched the culture',
         audience: 'Collectors & streetwear',
-        priceBand: 'Mid',
-        priceKsh: 3500,
-        image: jordanShatteredBackboard
+        priceBand: 'Premium',
+        image: 'https://images.unsplash.com/photo-1556906781-9a412961c28c?w=800&h=800&fit=crop'
       },
       {
-        model: 'Jordan 1 Retro High OG',
-        variant: 'Black Toe',
-        descriptor: 'Timeless black, white and red design',
-        audience: 'Classic collectors',
-        priceBand: 'Mid',
-        priceKsh: 3500,
-        image: jordanBlackToe
+        model: 'Air Jordan 2',
+        variant: 'OG / Retro',
+        descriptor: 'Sleek luxury basketball silhouette',
+        audience: 'Vintage lovers',
+        priceBand: 'Premium',
+        image: 'https://images.unsplash.com/photo-1552346154-21d32810aba3?w=800&h=800&fit=crop'
       },
       {
-        model: 'Jordan 1 Retro High OG',
-        variant: 'Chicago',
-        descriptor: 'The original MJ colorway',
+        model: 'Air Jordan 3',
+        variant: 'OG / Retro (Cement, Fire Red)',
+        descriptor: 'Tumbled leather + elephant print, MJ era classic',
         audience: 'Collectors',
-        priceBand: 'Mid',
-        priceKsh: 3500,
-        image: jordanChicago
+        priceBand: 'Premium',
+        image: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=800&h=800&fit=crop'
       },
       {
-        model: 'Jordan 1 Retro High OG',
-        variant: 'Bred',
-        descriptor: 'Classic black and red heritage',
+        model: 'Air Jordan 4',
+        variant: 'OG / Retro (White, Bred)',
+        descriptor: 'Mesh + visible air, street staple',
         audience: 'Sneakerheads',
-        priceBand: 'Mid',
-        priceKsh: 3500,
-        image: jordanBred
+        priceBand: 'Premium',
+        image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&h=800&fit=crop'
       },
       {
-        model: 'Jordan 1 Retro High OG',
-        variant: 'Patent Bred',
-        descriptor: 'Glossy patent leather finish',
-        audience: 'Style collectors',
-        priceBand: 'Mid',
-        priceKsh: 3500,
-        image: jordanPatentBred
+        model: 'Air Jordan 5',
+        variant: 'OG / Retro',
+        descriptor: 'Reflective tongue + shark-tooth midsole',
+        audience: 'Retro fans',
+        priceBand: 'Premium',
+        image: 'https://images.unsplash.com/photo-1605408499391-6368c628ef42?w=800&h=800&fit=crop'
       },
       {
-        model: 'Jordan 1 Retro High OG',
-        variant: 'Black White',
-        descriptor: 'Clean monochrome essential',
-        audience: 'Everyday wearers',
-        priceBand: 'Mid',
-        priceKsh: 3500,
-        image: jordanBlackWhite
+        model: 'Air Jordan 6',
+        variant: 'OG / Retro',
+        descriptor: 'Visible heel tab, infra-red hits',
+        audience: 'MJ fans & retro collectors',
+        priceBand: 'Premium',
+        image: 'https://images.unsplash.com/photo-1614252369475-531eba835eb1?w=800&h=800&fit=crop'
       },
       {
-        model: 'Jordan 1 Retro High OG',
-        variant: 'Taxi',
-        descriptor: 'Bold yellow and black colorway',
-        audience: 'Statement makers',
-        priceBand: 'Mid',
-        priceKsh: 3500,
-        image: jordanTaxi
-      },
-      {
-        model: 'Jordan 1 Retro High OG',
-        variant: 'UNC Toe',
-        descriptor: 'University Blue accent details',
-        audience: 'Jordan fans',
-        priceBand: 'Mid',
-        priceKsh: 3500,
-        image: jordanUncToe
-      },
-      {
-        model: 'Jordan 1 Retro High OG',
-        variant: 'University Blue',
-        descriptor: 'Full UNC-inspired colorway',
-        audience: 'Blue lovers',
-        priceBand: 'Mid',
-        priceKsh: 3500,
-        image: jordanUniversityBlue
-      },
-      {
-        model: 'Jordan 1 Retro High',
-        variant: 'Dark Mocha',
-        descriptor: 'Earthy tones with premium suede',
-        audience: 'Style enthusiasts',
-        priceBand: 'Mid',
-        priceKsh: 3500,
-        image: jordanDarkMocha
-      },
-      {
-        model: 'Jordan 1 Retro High OG SP',
-        variant: 'Travis Scott Mocha',
-        descriptor: 'Coveted collaboration with reverse swoosh',
+        model: 'Air Jordan 11',
+        variant: 'Concord / Bred / Cool Grey',
+        descriptor: 'Patent leather, luxury performance crossover',
         audience: 'Hype collectors',
+        priceBand: 'Premium',
+        image: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=800&h=800&fit=crop'
+      },
+      {
+        model: 'Air Jordan 12',
+        variant: 'Retro',
+        descriptor: 'Premium leather, bold stitching',
+        audience: 'Dress-up sneaker fans',
+        priceBand: 'Premium',
+        image: 'https://images.unsplash.com/photo-1579338559194-a162d19bf842?w=800&h=800&fit=crop'
+      },
+      {
+        model: 'Air Jordan 13',
+        variant: 'Retro',
+        descriptor: 'Panther-inspired silhouette, techy sole',
+        audience: 'Classic collectors',
+        priceBand: 'Premium',
+        image: 'https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?w=800&h=800&fit=crop'
+      },
+      {
+        model: 'Jordan Legacy / Luka',
+        variant: 'Low/Mid/High',
+        descriptor: 'Modern player models influenced by AJ legacy',
+        audience: 'Younger players & streetwear',
         priceBand: 'Mid',
-        priceKsh: 3500,
-        image: jordanTravisScott
+        image: 'https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=800&h=800&fit=crop'
       }
     ]
   },

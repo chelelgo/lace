@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button';
 import heroImage from '@/assets/hero-shoes.jpg';
-import laceLogo from '@/assets/lace-logo.png';
 
 const Hero = () => {
   return (
@@ -11,13 +10,6 @@ const Hero = () => {
         style={{ backgroundImage: `url(${heroImage})` }}
       />
       <div className="absolute inset-0 bg-black/50" />
-      
-      {/* Lace Logo Overlay */}
-      <img 
-        src={laceLogo} 
-        alt="Lace" 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[600px] opacity-20 brightness-0 invert pointer-events-none"
-      />
       
       {/* Content */}
       <div className="container relative z-10 max-w-7xl px-6 md:px-12">

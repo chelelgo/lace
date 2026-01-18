@@ -57,7 +57,7 @@ const BrandShowcase = ({ brand }: BrandShowcaseProps) => {
                 </div>
                 <div className="flex items-center gap-2 pt-2">
                   <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 bg-muted">
-                    {model.priceKsh ? `Ksh ${model.priceKsh.toLocaleString()}` : model.priceBand}
+                    {model.priceBand}
                   </span>
                 </div>
               </div>
