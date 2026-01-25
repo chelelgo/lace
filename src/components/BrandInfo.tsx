@@ -1,5 +1,7 @@
 import product1 from '@/assets/product-1.jpg';
 import product2 from '@/assets/product-2.jpg';
+import product4 from '@/assets/product-4.jpg';
+import product5 from '@/assets/product-5.jpg';
 
 const BrandInfo = () => {
   return (
