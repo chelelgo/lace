@@ -45,7 +45,7 @@ const CommunitySection = () => {
               <div className="text-base font-medium text-white/70 uppercase tracking-wide">Members</div>
             </div>
             <div className="p-8 bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-              <div className="text-5xl md:text-6xl font-bold mb-2 text-accent">COMING SOON</div>
+              <div className="text-5xl md:text-6xl font-bold mb-2 text-accent">0</div>
               <div className="text-base font-medium text-white/70 uppercase tracking-wide">Events</div>
             </div>
             <div className="p-8 bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
