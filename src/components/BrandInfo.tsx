@@ -36,14 +36,14 @@ const BrandInfo = () => {
           <div className="relative">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-4">
-                <div className="aspect-[3/4] overflow-hidden bg-muted">
+                <div className="aspect-square overflow-hidden bg-muted">
                   <img 
                     src={product1} 
                     alt="Sneaker culture" 
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   />
                 </div>
-                <div className="aspect-square overflow-hidden bg-muted">
+                <div className="aspect-[3/4] overflow-hidden bg-muted">
                   <img 
                     src={product2} 
                     alt="Street style" 
@@ -59,7 +59,7 @@ const BrandInfo = () => {
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   />
                 </div>
-                <div className="aspect-[3/4] overflow-hidden bg-muted">
+                <div className="aspect-square overflow-hidden bg-muted">
                   <img 
                     src={product1} 
                     alt="Lifestyle" 
