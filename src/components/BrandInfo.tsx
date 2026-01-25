@@ -54,14 +54,14 @@ const BrandInfo = () => {
               <div className="space-y-4 pt-8">
                 <div className="aspect-square overflow-hidden bg-muted">
                   <img 
-                    src={product2} 
+                    src={product5} 
                     alt="Community" 
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   />
                 </div>
                 <div className="aspect-square overflow-hidden bg-muted">
                   <img 
-                    src={product1} 
+                    src={product4} 
                     alt="Lifestyle" 
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   />
