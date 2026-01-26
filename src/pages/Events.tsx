@@ -6,19 +6,19 @@ import { Button } from '@/components/ui/button';
 const events = [
   {
     id: 1,
-    title: "Lace Spring Showcase 2025",
-    date: "March 15, 2025",
-    time: "6:00 PM - 10:00 PM",
+    title: "Lace Brand Launch 2026",
+    date: "March 7, 2025",
+    time: "2:00 PM - 8:00 PM",
     location: "Downtown Convention Center",
     attendees: 500,
-    description: "Join us for our biggest spring event featuring exclusive sneaker drops, live customization stations, and meet-and-greets with top designers.",
+    description: "Join us for our biggest launch event featuring exclusive sneaker drops, live customization stations, and meet-and-greets with top designers.",
     status: "upcoming",
     image: "https://images.unsplash.com/photo-1556906781-9cba4a8e7e37?w=800&h=600&fit=crop"
   },
   {
     id: 2,
     title: "Sneaker Culture Summit",
-    date: "April 22, 2025",
+    date: "April 22, 2026",
     time: "2:00 PM - 8:00 PM",
     location: "Urban Arts District",
     attendees: 350,
@@ -28,8 +28,8 @@ const events = [
   },
   {
     id: 3,
-    title: "Lace x Nike Collaboration Launch",
-    date: "May 8, 2025",
+    title: "Lace x Xceed Collaboration Launch",
+    date: "May 8, 2026",
     time: "7:00 PM - 11:00 PM",
     location: "Lace Flagship Store",
     attendees: 200,
@@ -39,8 +39,8 @@ const events = [
   },
   {
     id: 4,
-    title: "Winter Kickoff Fest",
-    date: "January 20, 2025",
+    title: "Festive Kickoff Fest",
+    date: "November 20, 2026",
     time: "5:00 PM - 9:00 PM",
     location: "City Square Plaza",
     attendees: 450,
