@@ -13,6 +13,11 @@ import Community from "./pages/Community";
 import Contact from "./pages/Contact";
 import Product from "./pages/Product";
 import NotFound from "./pages/NotFound";
+import AdminLayout from "./pages/admin/AdminLayout";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminOrders from "./pages/admin/AdminOrders";
+import AdminProducts from "./pages/admin/AdminProducts";
+import AdminCustomers from "./pages/admin/AdminCustomers";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +35,15 @@ const AppContent = () => {
         <Route path="/community" element={<Community />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/product/:handle" element={<Product />} />
+        
+        {/* Admin Routes */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="products" element={<AdminProducts />} />
+          <Route path="customers" element={<AdminCustomers />} />
+        </Route>
+        
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
