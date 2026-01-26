@@ -9,7 +9,7 @@ const events = [
     title: "Lace Brand Launch 2026",
     date: "March 7, 2025",
     time: "2:00 PM - 8:00 PM",
-    location: "Downtown Convention Center",
+    location: "Downtown Convention Centre",
     attendees: 500,
     description: "Join us for our biggest launch event featuring exclusive sneaker drops, live customization stations, and meet-and-greets with top designers.",
     status: "upcoming",
@@ -40,7 +40,7 @@ const events = [
   {
     id: 4,
     title: "Festive Kickoff Fest",
-    date: "November 20, 2026",
+    date: "November 20, 2025",
     time: "5:00 PM - 9:00 PM",
     location: "City Square Plaza",
     attendees: 450,
