@@ -13,6 +13,9 @@ interface ProductNode {
   title: string;
   description: string;
   handle: string;
+  vendor?: string;
+  productType?: string;
+  tags?: string[];
   priceRange: {
     minVariantPrice: {
       amount: string;

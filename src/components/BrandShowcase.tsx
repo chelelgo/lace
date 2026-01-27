@@ -1,12 +1,39 @@
+import { Link } from 'react-router-dom';
 import { Brand } from '@/data/brands';
 import { Button } from '@/components/ui/button';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Loader2 } from 'lucide-react';
+import { useShopifyProducts } from '@/hooks/useShopifyProducts';
+import { useCartStore } from '@/stores/cartStore';
+import { toast } from 'sonner';
 
 interface BrandShowcaseProps {
   brand: Brand;
 }
 
 const BrandShowcase = ({ brand }: BrandShowcaseProps) => {
+  const { products, isLoading } = useShopifyProducts({ brandFilter: brand.shopifyFilter, limit: 4 });
+  const addItem = useCartStore(state => state.addItem);
+  const isAddingToCart = useCartStore(state => state.isLoading);
+
+  const handleAddToCart = async (product: typeof products[0]) => {
+    const variant = product.node.variants.edges[0]?.node;
+    if (!variant) {
+      toast.error('No variant available');
+      return;
+    }
+
+    await addItem({
+      product,
+      variantId: variant.id,
+      variantTitle: variant.title,
+      price: variant.price,
+      quantity: 1,
+      selectedOptions: variant.selectedOptions || []
+    });
+    
+    toast.success('Added to cart', { position: 'top-center' });
+  };
+
   return (
     <div className="space-y-16 animate-fade-in">
       {/* Hero Section */}
@@ -25,61 +52,96 @@ const BrandShowcase = ({ brand }: BrandShowcaseProps) => {
         </div>
       </div>
 
-      {/* Featured Models */}
+      {/* Featured Products from Shopify */}
       <div className="container px-6 md:px-12">
         <div className="mb-12">
-          <h3 className="uppercase mb-2">Featured Models</h3>
+          <h3 className="uppercase mb-2">Featured Products</h3>
           <div className="h-1 w-20 bg-accent" />
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {brand.featuredModels.map((model, index) => (
-            <div 
-              key={index} 
-              className="group border border-border bg-card overflow-hidden hover:border-accent transition-all duration-300"
-              style={{ '--accent': brand.accentColor } as React.CSSProperties}
-            >
-              <div className="aspect-square overflow-hidden">
-                <img src={model.image} alt={model.model} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-              </div>
-              <div className="p-6 space-y-4">
-                <div className="h-1 w-12 group-hover:w-20 transition-all duration-300" 
-                     style={{ backgroundColor: brand.accentColor }} />
-                <h4 className="text-xl font-bold uppercase">{model.model}</h4>
-                <p className="text-sm text-muted-foreground uppercase tracking-wider">
-                  {model.variant}
-                </p>
-                <p className="text-sm leading-relaxed">{model.descriptor}</p>
-                <div className="pt-2">
-                  <span className="text-xs uppercase tracking-wider text-muted-foreground">
-                    For: {model.audience}
-                  </span>
+        {isLoading ? (
+          <div className="flex items-center justify-center py-20">
+            <Loader2 className="h-8 w-8 animate-spin text-accent" />
+          </div>
+        ) : products.length === 0 ? (
+          <div className="text-center py-20 border border-dashed border-border rounded-lg">
+            <p className="text-muted-foreground mb-4">No products found for {brand.name}</p>
+            <p className="text-sm text-muted-foreground">
+              Add products with the tag, vendor, or product type "{brand.shopifyFilter}" in Shopify
+            </p>
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-12">
+            {products.slice(0, 4).map((product) => {
+              const node = product.node;
+              const image = node.images.edges[0]?.node;
+              const price = node.priceRange.minVariantPrice;
+              const variant = node.variants.edges[0]?.node;
+              
+              return (
+                <div 
+                  key={node.id} 
+                  className="group border border-border bg-card overflow-hidden hover:border-accent transition-all duration-300"
+                >
+                  <Link to={`/product/${node.handle}`} className="block">
+                    <div className="aspect-square overflow-hidden bg-muted">
+                      {image ? (
+                        <img 
+                          src={image.url} 
+                          alt={image.altText || node.title} 
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                          No image
+                        </div>
+                      )}
+                    </div>
+                  </Link>
+                  <div className="p-6 space-y-4">
+                    <div 
+                      className="h-1 w-12 group-hover:w-20 transition-all duration-300" 
+                      style={{ backgroundColor: brand.accentColor }} 
+                    />
+                    <Link to={`/product/${node.handle}`}>
+                      <h4 className="text-xl font-bold uppercase hover:text-accent transition-colors">
+                        {node.title}
+                      </h4>
+                    </Link>
+                    <p className="text-lg font-bold" style={{ color: brand.accentColor }}>
+                      {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
+                    </p>
+                    <p className="text-sm leading-relaxed line-clamp-2 text-muted-foreground">
+                      {node.description || 'Premium quality sneaker'}
+                    </p>
+                    {variant && (
+                      <Button 
+                        onClick={() => handleAddToCart(product)}
+                        disabled={isAddingToCart || !variant.availableForSale}
+                        className="w-full font-bold uppercase tracking-wider"
+                        style={{ backgroundColor: brand.accentColor }}
+                      >
+                        {variant.availableForSale ? 'Add to Cart' : 'Out of Stock'}
+                      </Button>
+                    )}
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 pt-2">
-                  <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 bg-muted">
-                    {model.priceBand}
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+              );
+            })}
+          </div>
+        )}
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button 
             size="lg"
             className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold uppercase tracking-wider group"
+            asChild
           >
-            Shop Now
-            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Button>
-          <Button 
-            size="lg"
-            variant="outline"
-            className="font-bold uppercase tracking-wider border-2"
-          >
-            Discover the Story
+            <Link to="/shop">
+              Shop All
+              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </Button>
         </div>
       </div>
