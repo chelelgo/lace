@@ -14,6 +14,7 @@ import Contact from "./pages/Contact";
 import Product from "./pages/Product";
 import NotFound from "./pages/NotFound";
 import AdminLayout from "./pages/admin/AdminLayout";
+import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminOrders from "./pages/admin/AdminOrders";
 import AdminProducts from "./pages/admin/AdminProducts";
@@ -37,6 +38,7 @@ const AppContent = () => {
         <Route path="/product/:handle" element={<Product />} />
         
         {/* Admin Routes */}
+        <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminDashboard />} />
           <Route path="orders" element={<AdminOrders />} />
