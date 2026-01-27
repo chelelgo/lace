@@ -1,7 +1,9 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, ShoppingCart, Package, Users, Home, ChevronLeft } from 'lucide-react';
+import { LayoutDashboard, ShoppingCart, Package, Users, ChevronLeft, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/hooks/useAuth';
+import { useToast } from '@/hooks/use-toast';
 import laceLogo from '@/assets/lace-logo.png';
 
 const navItems = [
@@ -13,6 +15,26 @@ const navItems = [
 
 const AdminSidebar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, signOut } = useAuth();
+  const { toast } = useToast();
+
+  const handleLogout = async () => {
+    const { error } = await signOut();
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Failed to sign out",
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Signed out",
+        description: "You have been signed out successfully",
+      });
+      navigate('/admin/login');
+    }
+  };
 
   return (
     <aside className="w-64 border-r border-border bg-sidebar min-h-screen flex flex-col">
@@ -45,7 +67,16 @@ const AdminSidebar = () => {
         })}
       </nav>
 
-      <div className="p-4 border-t border-border">
+      <div className="p-4 border-t border-border space-y-2">
+        {user && (
+          <p className="text-xs text-muted-foreground truncate px-1 mb-2">
+            {user.email}
+          </p>
+        )}
+        <Button variant="ghost" className="w-full gap-2 justify-start" onClick={handleLogout}>
+          <LogOut className="h-4 w-4" />
+          Sign Out
+        </Button>
         <Button variant="outline" className="w-full gap-2" asChild>
           <a href="/">
             <ChevronLeft className="h-4 w-4" />
