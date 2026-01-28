@@ -1,9 +1,10 @@
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import heroImage from '@/assets/hero-shoes.png';
 
 const Hero = () => {
   return (
-    <section className="relative w-full h-screen min-h-[700px] flex items-center justify-center overflow-hidden bg-black">
+    <section className="relative w-full min-h-[85vh] md:min-h-screen flex items-center justify-center overflow-hidden bg-black">
       {/* Background Image with Overlay */}
       <div 
         className="absolute inset-0 bg-cover bg-center"
@@ -12,27 +13,36 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black/50" />
       
       {/* Content */}
-      <div className="container relative z-10 max-w-7xl px-6 md:px-12">
-        <div className="max-w-4xl space-y-8">
-          <h1 className="text-white leading-none animate-slide-up opacity-0 [animation-delay:200ms]">
+      <div className="container relative z-10 max-w-7xl px-4 md:px-6 lg:px-12 py-16 md:py-0">
+        <div className="max-w-4xl space-y-5 md:space-y-8">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white leading-none animate-slide-up opacity-0 [animation-delay:200ms]">
             Stay Laced.<br />Stay Connected.
           </h1>
-          <p className="text-xl md:text-3xl text-white/90 max-w-2xl font-light leading-relaxed animate-slide-up opacity-0 [animation-delay:400ms]">
+          <p className="text-base sm:text-lg md:text-xl lg:text-3xl text-white/90 max-w-2xl font-light leading-relaxed animate-slide-up opacity-0 [animation-delay:400ms]">
             More than sneakers — we're the thread that ties culture together.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 pt-4 animate-slide-up opacity-0 [animation-delay:600ms]">
-            <Button size="lg" className="text-base md:text-lg px-12 py-7 h-auto font-bold uppercase tracking-wider bg-accent hover:bg-accent/90 text-accent-foreground">
-              Shop the Drop
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 pt-2 md:pt-4 animate-slide-up opacity-0 [animation-delay:600ms]">
+            <Button 
+              size="lg" 
+              className="text-sm md:text-base lg:text-lg px-8 md:px-12 py-5 md:py-7 h-auto font-bold uppercase tracking-wider bg-accent hover:bg-accent/90 text-accent-foreground"
+              asChild
+            >
+              <Link to="/shop">Shop the Drop</Link>
             </Button>
-            <Button size="lg" variant="outline" className="text-base md:text-lg px-12 py-7 h-auto font-bold uppercase tracking-wider border-2 border-black bg-white text-black hover:bg-black hover:text-white">
-              Join the Movement
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="text-sm md:text-base lg:text-lg px-8 md:px-12 py-5 md:py-7 h-auto font-bold uppercase tracking-wider border-2 border-white bg-transparent text-white hover:bg-white hover:text-black"
+              asChild
+            >
+              <Link to="/community">Join the Movement</Link>
             </Button>
           </div>
         </div>
       </div>
       
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      {/* Scroll Indicator - Hidden on mobile */}
+      <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:block">
         <div className="w-6 h-10 border-2 border-white/50 rounded-full flex items-start justify-center p-2">
           <div className="w-1 h-3 bg-white/50 rounded-full" />
         </div>

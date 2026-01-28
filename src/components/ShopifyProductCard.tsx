@@ -54,25 +54,25 @@ const ShopifyProductCard = ({ product }: ShopifyProductCardProps) => {
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+          <div className="w-full h-full flex items-center justify-center text-muted-foreground text-sm">
             No image
           </div>
         )}
       </div>
-      <div className="p-4 space-y-3">
-        <h3 className="font-bold text-lg uppercase truncate">{node.title}</h3>
-        <p className="text-sm text-muted-foreground line-clamp-2">
+      <div className="p-3 md:p-4 space-y-2 md:space-y-3">
+        <h3 className="font-bold text-sm md:text-lg uppercase truncate">{node.title}</h3>
+        <p className="text-xs md:text-sm text-muted-foreground line-clamp-2 hidden sm:block">
           {node.description || 'No description available'}
         </p>
-        <div className="flex items-center justify-between pt-2">
-          <span className="text-lg font-bold">
+        <div className="flex items-center justify-between pt-1 md:pt-2">
+          <span className="text-sm md:text-lg font-bold">
             {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
           </span>
           <Button 
             size="sm" 
             onClick={handleAddToCart}
             disabled={isLoading || !firstVariant?.availableForSale}
-            className="bg-accent hover:bg-accent/90 text-accent-foreground"
+            className="bg-accent hover:bg-accent/90 text-accent-foreground h-8 w-8 md:h-9 md:w-auto md:px-3 p-0 md:p-2"
           >
             {isLoading ? (
               <Loader2 className="h-4 w-4 animate-spin" />
