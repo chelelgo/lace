@@ -1,17 +1,8 @@
-import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import BrandShowcase from '@/components/BrandShowcase';
-import BrandCatalog from '@/components/BrandCatalog';
-import { brands } from '@/data/brands';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import ShopifyProductGrid from '@/components/ShopifyProductGrid';
 
 const Shop = () => {
-  const [selectedBrand, setSelectedBrand] = useState(brands[0].id);
-
-  const currentBrand = brands.find(b => b.id === selectedBrand) || brands[0];
-
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
@@ -25,42 +16,25 @@ const Shop = () => {
                 Our Collection
               </h1>
               <p className="text-xl md:text-2xl font-light text-white/90 leading-relaxed">
-                Curated sneakers and streetwear. From heritage to hype. Every brand, every story.
+                Curated sneakers and streetwear. From heritage to hype. Every style, every story.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Brand Tabs - Horizontal Scrolling */}
-        <section className="sticky top-[73px] z-40 bg-background border-b border-border">
-          <div className="container px-6 md:px-12">
-            <Tabs value={selectedBrand} onValueChange={setSelectedBrand} className="w-full">
-              <ScrollArea className="w-full">
-                <TabsList className="w-full justify-start h-16 bg-transparent rounded-none border-b-0 p-0">
-                  {brands.map((brand) => (
-                    <TabsTrigger
-                      key={brand.id}
-                      value={brand.id}
-                      className="relative uppercase font-bold tracking-wider px-6 h-16 rounded-none border-b-4 border-transparent data-[state=active]:border-accent data-[state=active]:bg-transparent data-[state=active]:shadow-none hover:bg-muted/50 transition-all"
-                    >
-                      {brand.name}
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
-                <ScrollBar orientation="horizontal" />
-              </ScrollArea>
-            </Tabs>
-          </div>
-        </section>
-
-        {/* Brand Content */}
+        {/* Products Grid */}
         <section className="py-16 md:py-24">
-          <BrandShowcase brand={currentBrand} />
-        </section>
-
-        {/* Complete Catalog */}
-        <section className="py-16 md:py-24 bg-muted/30 border-t border-border">
-          <BrandCatalog brand={currentBrand} />
+          <div className="container px-6 md:px-12">
+            <div className="mb-12">
+              <h3 className="uppercase mb-2">All Products</h3>
+              <p className="text-muted-foreground">
+                Browse our complete collection
+              </p>
+              <div className="h-1 w-20 bg-accent mt-4" />
+            </div>
+            
+            <ShopifyProductGrid />
+          </div>
         </section>
 
         {/* CTA Section */}
