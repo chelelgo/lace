@@ -39,14 +39,14 @@ const Index = () => {
         <CommunitySection />
         
         {/* Top Selling Products Section */}
-        <section className="py-16 md:py-24 bg-muted/30">
-          <div className="container px-6 md:px-12">
-            <div className="text-center mb-12 animate-fade-up">
-              <h2 className="text-3xl md:text-4xl font-bold uppercase mb-4">Top Selling</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
+        <section className="py-12 md:py-16 lg:py-24 bg-muted/30">
+          <div className="container px-4 md:px-6 lg:px-12">
+            <div className="text-center mb-8 md:mb-12 animate-fade-up">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold uppercase mb-3 md:mb-4">Top Selling</h2>
+              <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
                 Discover our most popular picks from the collection
               </p>
-              <div className="h-1 w-20 bg-accent mx-auto mt-4" />
+              <div className="h-1 w-16 md:w-20 bg-accent mx-auto mt-3 md:mt-4" />
             </div>
             
             {isLoading ? (
@@ -54,7 +54,7 @@ const Index = () => {
                 <Loader2 className="h-8 w-8 animate-spin text-accent" />
               </div>
             ) : products.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 animate-fade-up" style={{ animationDelay: '0.1s' }}>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-6 mb-8 md:mb-12 animate-fade-up" style={{ animationDelay: '0.1s' }}>
                 {products.map((product) => (
                   <ShopifyProductCard key={product.node.id} product={product} />
                 ))}
@@ -62,10 +62,10 @@ const Index = () => {
             ) : null}
             
             <div className="text-center animate-fade-up" style={{ animationDelay: '0.2s' }}>
-              <Button asChild size="lg" className="uppercase tracking-wider font-bold">
+              <Button asChild size="lg" className="uppercase tracking-wider font-bold text-sm md:text-base">
                 <Link to="/shop">
                   Visit Shop
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
                 </Link>
               </Button>
             </div>
