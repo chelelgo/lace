@@ -64,7 +64,7 @@ const BrandCatalog = ({ brand }: BrandCatalogProps) => {
           </p>
         </div>
       ) : (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4 lg:gap-6">
           {products.map((product) => {
             const node = product.node;
             const image = node.images.edges[0]?.node;
@@ -90,9 +90,9 @@ const BrandCatalog = ({ brand }: BrandCatalogProps) => {
                         No image
                       </div>
                     )}
-                    <div className="absolute top-4 right-4">
+                    <div className="absolute top-2 right-2 md:top-4 md:right-4">
                       <span 
-                        className="text-xs font-bold uppercase px-2 py-1 bg-background/90 backdrop-blur-sm"
+                        className="text-[10px] md:text-xs font-bold uppercase px-1.5 py-0.5 md:px-2 md:py-1 bg-background/90 backdrop-blur-sm"
                         style={{ color: brand.accentColor }}
                       >
                         {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
@@ -102,35 +102,35 @@ const BrandCatalog = ({ brand }: BrandCatalogProps) => {
                 </Link>
 
                 {/* Product Info */}
-                <div className="p-4 space-y-3">
+                <div className="p-2.5 md:p-4 space-y-2 md:space-y-3">
                   <div>
                     <Link to={`/product/${node.handle}`}>
-                      <h4 className="font-bold uppercase text-sm mb-1 group-hover:text-accent transition-colors">
+                      <h4 className="font-bold uppercase text-xs md:text-sm mb-0.5 md:mb-1 group-hover:text-accent transition-colors truncate">
                         {node.title}
                       </h4>
                     </Link>
                     {node.productType && (
-                      <p className="text-xs text-muted-foreground uppercase tracking-wider">
+                      <p className="text-[10px] md:text-xs text-muted-foreground uppercase tracking-wider truncate">
                         {node.productType}
                       </p>
                     )}
                   </div>
                   
-                  <p className="text-xs leading-relaxed line-clamp-2 text-muted-foreground">
+                  <p className="text-[10px] md:text-xs leading-relaxed line-clamp-2 text-muted-foreground hidden sm:block">
                     {node.description || 'Premium quality sneaker'}
                   </p>
                   
-                  <div className="pt-2 border-t border-border">
-                    <p className="text-sm font-bold" style={{ color: brand.accentColor }}>
+                  <div className="pt-1.5 md:pt-2 border-t border-border">
+                    <p className="text-xs md:text-sm font-bold" style={{ color: brand.accentColor }}>
                       {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
                     </p>
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex gap-2 pt-2">
+                  <div className="flex gap-1.5 md:gap-2 pt-1.5 md:pt-2">
                     <Link 
                       to={`/product/${node.handle}`}
-                      className="flex-1 text-xs font-bold uppercase tracking-wider py-2 border border-border hover:border-accent hover:text-accent transition-colors text-center"
+                      className="flex-1 text-[10px] md:text-xs font-bold uppercase tracking-wider py-1.5 md:py-2 border border-border hover:border-accent hover:text-accent transition-colors text-center"
                     >
                       View
                     </Link>
@@ -138,10 +138,10 @@ const BrandCatalog = ({ brand }: BrandCatalogProps) => {
                       <button 
                         onClick={() => handleAddToCart(product)}
                         disabled={isAddingToCart || !variant.availableForSale}
-                        className="flex-1 text-xs font-bold uppercase tracking-wider py-2 text-white transition-colors disabled:opacity-50"
+                        className="flex-1 text-[10px] md:text-xs font-bold uppercase tracking-wider py-1.5 md:py-2 text-white transition-colors disabled:opacity-50"
                         style={{ backgroundColor: brand.accentColor }}
                       >
-                        {variant.availableForSale ? 'Add to Cart' : 'Sold Out'}
+                        {variant.availableForSale ? 'Add' : 'Sold'}
                       </button>
                     )}
                   </div>

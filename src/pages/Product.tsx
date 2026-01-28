@@ -237,23 +237,19 @@ const Product = () => {
 
               {/* AliExpress-style Option Selectors */}
               {product.options.map((option) => (
-                <div key={option.name} className="space-y-3">
+                <div key={option.name} className="space-y-2 md:space-y-3">
                   <div className="flex items-center justify-between">
-                    <label className="text-sm font-semibold uppercase tracking-wide">
+                    <label className="text-xs md:text-sm font-semibold uppercase tracking-wide">
                       {option.name}
                     </label>
-                    <span className="text-sm text-muted-foreground">
+                    <span className="text-xs md:text-sm text-muted-foreground">
                       {selectedOptions[option.name]}
                     </span>
                   </div>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5 md:gap-2">
                     {option.values.map((value) => {
                       const isSelected = selectedOptions[option.name] === value;
                       const isAvailable = isOptionAvailable(option.name, value);
-                      
-                      // Check if it looks like a color (common color names or hex)
-                      const isColorOption = option.name.toLowerCase() === 'color' || 
-                                           option.name.toLowerCase() === 'colour';
                       
                       return (
                         <button
@@ -261,17 +257,17 @@ const Product = () => {
                           onClick={() => handleOptionChange(option.name, value)}
                           disabled={!isAvailable}
                           className={`
-                            relative px-4 py-2.5 text-sm font-medium rounded-md border-2 transition-all
+                            relative px-2.5 py-1.5 md:px-4 md:py-2.5 text-xs md:text-sm font-medium rounded border-2 transition-all
                             ${isSelected 
                               ? 'border-accent bg-accent/10 text-accent' 
                               : 'border-border hover:border-accent/50'
                             }
                             ${!isAvailable ? 'opacity-40 cursor-not-allowed line-through' : 'cursor-pointer'}
-                            min-w-[60px] text-center
+                            min-w-[40px] md:min-w-[60px] text-center
                           `}
                         >
                           {isSelected && (
-                            <Check className="absolute -top-1 -right-1 h-4 w-4 bg-accent text-accent-foreground rounded-full p-0.5" />
+                            <Check className="absolute -top-1 -right-1 h-3 w-3 md:h-4 md:w-4 bg-accent text-accent-foreground rounded-full p-0.5" />
                           )}
                           {value}
                         </button>
@@ -282,34 +278,34 @@ const Product = () => {
               ))}
 
               {/* Quantity */}
-              <div className="space-y-3">
-                <label className="text-sm font-semibold uppercase tracking-wide">Quantity</label>
+              <div className="space-y-2 md:space-y-3">
+                <label className="text-xs md:text-sm font-semibold uppercase tracking-wide">Quantity</label>
                 <div className="flex items-center gap-1">
                   <Button
                     variant="outline"
                     size="icon"
-                    className="h-10 w-10"
+                    className="h-9 w-9 md:h-10 md:w-10"
                     onClick={() => setQuantity(q => Math.max(1, q - 1))}
                   >
-                    <Minus className="h-4 w-4" />
+                    <Minus className="h-3 w-3 md:h-4 md:w-4" />
                   </Button>
-                  <div className="w-16 h-10 flex items-center justify-center border border-border rounded-md font-medium">
+                  <div className="w-12 md:w-16 h-9 md:h-10 flex items-center justify-center border border-border rounded-md font-medium text-sm md:text-base">
                     {quantity}
                   </div>
                   <Button
                     variant="outline"
                     size="icon"
-                    className="h-10 w-10"
+                    className="h-9 w-9 md:h-10 md:w-10"
                     onClick={() => setQuantity(q => q + 1)}
                   >
-                    <Plus className="h-4 w-4" />
+                    <Plus className="h-3 w-3 md:h-4 md:w-4" />
                   </Button>
                 </div>
               </div>
 
               {/* Selected variant info */}
               {selectedVariant && (
-                <div className="p-3 bg-muted/50 rounded-lg text-sm">
+                <div className="p-2.5 md:p-3 bg-muted/50 rounded-lg text-xs md:text-sm">
                   <span className="text-muted-foreground">Selected: </span>
                   <span className="font-medium">
                     {selectedVariant.selectedOptions.map(o => o.value).join(' / ')}
