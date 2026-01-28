@@ -71,7 +71,7 @@ const BrandShowcase = ({ brand }: BrandShowcaseProps) => {
             </p>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-6 lg:gap-8 mb-8 md:mb-12">
             {products.slice(0, 4).map((product) => {
               const node = product.node;
               const image = node.images.edges[0]?.node;
@@ -98,27 +98,27 @@ const BrandShowcase = ({ brand }: BrandShowcaseProps) => {
                       )}
                     </div>
                   </Link>
-                  <div className="p-6 space-y-4">
+                  <div className="p-3 md:p-6 space-y-2 md:space-y-4">
                     <div 
-                      className="h-1 w-12 group-hover:w-20 transition-all duration-300" 
+                      className="h-0.5 md:h-1 w-8 md:w-12 group-hover:w-16 md:group-hover:w-20 transition-all duration-300" 
                       style={{ backgroundColor: brand.accentColor }} 
                     />
                     <Link to={`/product/${node.handle}`}>
-                      <h4 className="text-xl font-bold uppercase hover:text-accent transition-colors">
+                      <h4 className="text-sm md:text-xl font-bold uppercase hover:text-accent transition-colors truncate">
                         {node.title}
                       </h4>
                     </Link>
-                    <p className="text-lg font-bold" style={{ color: brand.accentColor }}>
+                    <p className="text-sm md:text-lg font-bold" style={{ color: brand.accentColor }}>
                       {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
                     </p>
-                    <p className="text-sm leading-relaxed line-clamp-2 text-muted-foreground">
+                    <p className="text-xs md:text-sm leading-relaxed line-clamp-2 text-muted-foreground hidden sm:block">
                       {node.description || 'Premium quality sneaker'}
                     </p>
                     {variant && (
                       <Button 
                         onClick={() => handleAddToCart(product)}
                         disabled={isAddingToCart || !variant.availableForSale}
-                        className="w-full font-bold uppercase tracking-wider"
+                        className="w-full font-bold uppercase tracking-wider text-xs md:text-sm h-9 md:h-10"
                         style={{ backgroundColor: brand.accentColor }}
                       >
                         {variant.availableForSale ? 'Add to Cart' : 'Out of Stock'}
