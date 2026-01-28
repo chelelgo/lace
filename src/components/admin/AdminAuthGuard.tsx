@@ -21,20 +21,18 @@ const AdminAuthGuard = ({ children }: AdminAuthGuardProps) => {
   if (!user) {
     return <Navigate to="/admin/login" replace />;
   }
-
-  // For now, allow any authenticated user - admin role check can be enabled later
-  // Uncomment below to require admin role:
-  // if (!isAdmin) {
-  //   return (
-  //     <div className="min-h-screen flex items-center justify-center bg-background">
-  //       <div className="text-center">
-  //         <h1 className="text-2xl font-bold mb-2">Access Denied</h1>
-  //         <p className="text-muted-foreground mb-4">You don't have admin privileges.</p>
-  //         <a href="/" className="text-primary hover:underline">Back to Store</a>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  // Require admin role for access
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-2">Access Denied</h1>
+          <p className="text-muted-foreground mb-4">You don't have admin privileges.</p>
+          <a href="/" className="text-primary hover:underline">Back to Store</a>
+        </div>
+      </div>
+    );
+  }
 
   return <>{children}</>;
 };
