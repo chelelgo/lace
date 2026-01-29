@@ -175,21 +175,69 @@ const Product = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-1 py-4 md:py-8">
-        <div className="container max-w-6xl px-4 md:px-6">
+      <main className="flex-1 pb-24 md:pb-8">
+        {/* Mobile: Full-width image */}
+        <div className="md:hidden">
+          <div className="relative">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => navigate(-1)}
+              className="absolute top-4 left-4 z-10 bg-background/80 backdrop-blur-sm"
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </Button>
+            <div className="w-full aspect-square bg-muted">
+              {images[selectedImage]?.node ? (
+                <img
+                  src={images[selectedImage].node.url}
+                  alt={images[selectedImage].node.altText || product.title}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                  No image
+                </div>
+              )}
+            </div>
+          </div>
+          {/* Thumbnail strip */}
+          {images.length > 1 && (
+            <div className="flex gap-2 overflow-x-auto p-3 bg-muted/30">
+              {images.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setSelectedImage(idx)}
+                  className={`w-14 h-14 flex-shrink-0 rounded overflow-hidden border-2 transition-colors ${
+                    selectedImage === idx ? 'border-accent' : 'border-transparent'
+                  }`}
+                >
+                  <img
+                    src={img.node.url}
+                    alt={img.node.altText || `${product.title} ${idx + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Desktop layout */}
+        <div className="hidden md:block container max-w-6xl px-6 py-8">
           <Button
             variant="ghost"
             onClick={() => navigate(-1)}
-            className="mb-4 md:mb-6 -ml-2"
+            className="mb-6 -ml-2"
             size="sm"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back
           </Button>
 
-          <div className="grid md:grid-cols-2 gap-6 lg:gap-12">
-            {/* Images */}
-            <div className="space-y-3 md:space-y-4">
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Desktop Images */}
+            <div className="space-y-4">
               <div className="aspect-square overflow-hidden bg-muted rounded-lg">
                 {images[selectedImage]?.node ? (
                   <img
@@ -204,12 +252,12 @@ const Product = () => {
                 )}
               </div>
               {images.length > 1 && (
-                <div className="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1">
+                <div className="flex gap-2 overflow-x-auto pb-2">
                   {images.map((img, idx) => (
                     <button
                       key={idx}
                       onClick={() => setSelectedImage(idx)}
-                      className={`w-16 h-16 md:w-20 md:h-20 flex-shrink-0 rounded-md overflow-hidden border-2 transition-colors ${
+                      className={`w-20 h-20 flex-shrink-0 rounded-md overflow-hidden border-2 transition-colors ${
                         selectedImage === idx ? 'border-accent' : 'border-transparent'
                       }`}
                     >
@@ -224,29 +272,29 @@ const Product = () => {
               )}
             </div>
 
-            {/* Details */}
-            <div className="space-y-5 md:space-y-6">
+            {/* Desktop Details */}
+            <div className="space-y-6">
               <div>
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold uppercase mb-2">{product.title}</h1>
-                <p className="text-xl md:text-2xl font-bold text-accent">
+                <h1 className="text-3xl lg:text-4xl font-bold uppercase mb-2">{product.title}</h1>
+                <p className="text-2xl font-bold text-accent">
                   {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
                 </p>
               </div>
 
-              <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{product.description}</p>
+              <p className="text-base text-muted-foreground leading-relaxed">{product.description}</p>
 
-              {/* AliExpress-style Option Selectors */}
+              {/* Desktop Option Selectors */}
               {product.options.map((option) => (
-                <div key={option.name} className="space-y-2 md:space-y-3">
+                <div key={option.name} className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs md:text-sm font-semibold uppercase tracking-wide">
+                    <label className="text-sm font-semibold uppercase tracking-wide">
                       {option.name}
                     </label>
-                    <span className="text-xs md:text-sm text-muted-foreground">
+                    <span className="text-sm text-muted-foreground">
                       {selectedOptions[option.name]}
                     </span>
                   </div>
-                  <div className="flex flex-wrap gap-1.5 md:gap-2">
+                  <div className="flex flex-wrap gap-2">
                     {option.values.map((value) => {
                       const isSelected = selectedOptions[option.name] === value;
                       const isAvailable = isOptionAvailable(option.name, value);
@@ -257,17 +305,17 @@ const Product = () => {
                           onClick={() => handleOptionChange(option.name, value)}
                           disabled={!isAvailable}
                           className={`
-                            relative px-2.5 py-1.5 md:px-4 md:py-2.5 text-xs md:text-sm font-medium rounded border-2 transition-all
+                            relative px-4 py-2.5 text-sm font-medium rounded border-2 transition-all
                             ${isSelected 
                               ? 'border-accent bg-accent/10 text-accent' 
                               : 'border-border hover:border-accent/50'
                             }
                             ${!isAvailable ? 'opacity-40 cursor-not-allowed line-through' : 'cursor-pointer'}
-                            min-w-[40px] md:min-w-[60px] text-center
+                            min-w-[60px] text-center
                           `}
                         >
                           {isSelected && (
-                            <Check className="absolute -top-1 -right-1 h-3 w-3 md:h-4 md:w-4 bg-accent text-accent-foreground rounded-full p-0.5" />
+                            <Check className="absolute -top-1 -right-1 h-4 w-4 bg-accent text-accent-foreground rounded-full p-0.5" />
                           )}
                           {value}
                         </button>
@@ -277,35 +325,34 @@ const Product = () => {
                 </div>
               ))}
 
-              {/* Quantity */}
-              <div className="space-y-2 md:space-y-3">
-                <label className="text-xs md:text-sm font-semibold uppercase tracking-wide">Quantity</label>
+              {/* Desktop Quantity */}
+              <div className="space-y-3">
+                <label className="text-sm font-semibold uppercase tracking-wide">Quantity</label>
                 <div className="flex items-center gap-1">
                   <Button
                     variant="outline"
                     size="icon"
-                    className="h-9 w-9 md:h-10 md:w-10"
+                    className="h-10 w-10"
                     onClick={() => setQuantity(q => Math.max(1, q - 1))}
                   >
-                    <Minus className="h-3 w-3 md:h-4 md:w-4" />
+                    <Minus className="h-4 w-4" />
                   </Button>
-                  <div className="w-12 md:w-16 h-9 md:h-10 flex items-center justify-center border border-border rounded-md font-medium text-sm md:text-base">
+                  <div className="w-16 h-10 flex items-center justify-center border border-border rounded-md font-medium">
                     {quantity}
                   </div>
                   <Button
                     variant="outline"
                     size="icon"
-                    className="h-9 w-9 md:h-10 md:w-10"
+                    className="h-10 w-10"
                     onClick={() => setQuantity(q => q + 1)}
                   >
-                    <Plus className="h-3 w-3 md:h-4 md:w-4" />
+                    <Plus className="h-4 w-4" />
                   </Button>
                 </div>
               </div>
 
-              {/* Selected variant info */}
               {selectedVariant && (
-                <div className="p-2.5 md:p-3 bg-muted/50 rounded-lg text-xs md:text-sm">
+                <div className="p-3 bg-muted/50 rounded-lg text-sm">
                   <span className="text-muted-foreground">Selected: </span>
                   <span className="font-medium">
                     {selectedVariant.selectedOptions.map(o => o.value).join(' / ')}
@@ -316,28 +363,142 @@ const Product = () => {
                 </div>
               )}
 
-              {/* Add to Cart - Sticky on mobile */}
-              <div className="pt-2">
-                <Button
-                  size="lg"
-                  className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold uppercase tracking-wider h-12 md:h-14 text-base"
-                  onClick={handleAddToCart}
-                  disabled={isAddingToCart || !selectedVariant?.availableForSale}
-                >
-                  {isAddingToCart ? (
-                    <Loader2 className="h-5 w-5 animate-spin mr-2" />
-                  ) : (
-                    <ShoppingCart className="h-5 w-5 mr-2" />
-                  )}
-                  Add to Cart
-                </Button>
-              </div>
+              <Button
+                size="lg"
+                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold uppercase tracking-wider h-14 text-base"
+                onClick={handleAddToCart}
+                disabled={isAddingToCart || !selectedVariant?.availableForSale}
+              >
+                {isAddingToCart ? (
+                  <Loader2 className="h-5 w-5 animate-spin mr-2" />
+                ) : (
+                  <ShoppingCart className="h-5 w-5 mr-2" />
+                )}
+                Add to Cart
+              </Button>
 
               {selectedVariant && !selectedVariant.availableForSale && (
                 <p className="text-destructive text-sm text-center">This variant is currently out of stock</p>
               )}
             </div>
           </div>
+        </div>
+
+        {/* Mobile Details */}
+        <div className="md:hidden px-4 py-4 space-y-4">
+          <div>
+            <h1 className="text-xl font-bold uppercase leading-tight">{product.title}</h1>
+            <p className="text-xl font-bold text-accent mt-1">
+              {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
+            </p>
+          </div>
+
+          <p className="text-sm text-muted-foreground leading-relaxed">{product.description}</p>
+
+          {/* Mobile AliExpress-style Option Selectors */}
+          {product.options.map((option) => (
+            <div key={option.name} className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  {option.name}
+                </span>
+                <span className="text-xs font-medium">
+                  {selectedOptions[option.name]}
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {option.values.map((value) => {
+                  const isSelected = selectedOptions[option.name] === value;
+                  const isAvailable = isOptionAvailable(option.name, value);
+                  
+                  return (
+                    <button
+                      key={value}
+                      onClick={() => handleOptionChange(option.name, value)}
+                      disabled={!isAvailable}
+                      className={`
+                        relative px-3 py-2 text-xs font-medium rounded border transition-all
+                        ${isSelected 
+                          ? 'border-accent bg-accent/10 text-accent' 
+                          : 'border-border'
+                        }
+                        ${!isAvailable ? 'opacity-40 cursor-not-allowed line-through' : ''}
+                      `}
+                    >
+                      {isSelected && (
+                        <Check className="absolute -top-1 -right-1 h-3 w-3 bg-accent text-accent-foreground rounded-full p-0.5" />
+                      )}
+                      {value}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+
+          {/* Mobile Quantity */}
+          <div className="flex items-center justify-between py-2 border-t border-border">
+            <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Quantity</span>
+            <div className="flex items-center gap-1">
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-8 w-8"
+                onClick={() => setQuantity(q => Math.max(1, q - 1))}
+              >
+                <Minus className="h-3 w-3" />
+              </Button>
+              <span className="w-10 text-center font-medium text-sm">{quantity}</span>
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-8 w-8"
+                onClick={() => setQuantity(q => q + 1)}
+              >
+                <Plus className="h-3 w-3" />
+              </Button>
+            </div>
+          </div>
+
+          {selectedVariant && (
+            <div className="p-2.5 bg-muted/50 rounded text-xs">
+              <span className="text-muted-foreground">Selected: </span>
+              <span className="font-medium">
+                {selectedVariant.selectedOptions.map(o => o.value).join(' / ')}
+              </span>
+              {!selectedVariant.availableForSale && (
+                <span className="ml-2 text-destructive">(Out of stock)</span>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Mobile Sticky Add to Cart Bar */}
+        <div className="md:hidden fixed bottom-0 left-0 right-0 bg-background border-t border-border p-3 flex items-center gap-3 z-50">
+          <div className="flex-1">
+            <p className="text-lg font-bold text-accent">
+              {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
+            </p>
+            {selectedVariant && (
+              <p className="text-xs text-muted-foreground truncate">
+                {selectedVariant.selectedOptions.map(o => o.value).join(' / ')}
+              </p>
+            )}
+          </div>
+          <Button
+            className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground font-bold uppercase h-12"
+            onClick={handleAddToCart}
+            disabled={isAddingToCart || !selectedVariant?.availableForSale}
+          >
+            {isAddingToCart ? (
+              <Loader2 className="h-5 w-5 animate-spin" />
+            ) : (
+              <>
+                <ShoppingCart className="h-4 w-4 mr-2" />
+                Add to Cart
+              </>
+            )}
+          </Button>
         </div>
       </main>
       <Footer />
