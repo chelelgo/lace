@@ -1,11 +1,11 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchProductByHandle } from '@/lib/shopify';
 import { useCartStore } from '@/stores/cartStore';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, ShoppingCart, Loader2, Minus, Plus, Check } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, Loader2, Minus, Plus, Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface ProductNode {
@@ -61,9 +61,51 @@ const Product = () => {
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
   
   const addItem = useCartStore(state => state.addItem);
   const isAddingToCart = useCartStore(state => state.isLoading);
+
+  // Swipe handlers for mobile image gallery
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    
+    const diff = touchStartX.current - touchEndX.current;
+    const threshold = 50;
+
+    if (Math.abs(diff) > threshold && product) {
+      const imagesCount = product.images.edges.length;
+      if (diff > 0) {
+        // Swipe left - next image
+        setSelectedImage((prev) => (prev + 1) % imagesCount);
+      } else {
+        // Swipe right - previous image
+        setSelectedImage((prev) => (prev - 1 + imagesCount) % imagesCount);
+      }
+    }
+
+    touchStartX.current = null;
+    touchEndX.current = null;
+  }, [product]);
+
+  const goToNextImage = useCallback(() => {
+    if (!product) return;
+    setSelectedImage((prev) => (prev + 1) % product.images.edges.length);
+  }, [product]);
+
+  const goToPrevImage = useCallback(() => {
+    if (!product) return;
+    setSelectedImage((prev) => (prev - 1 + product.images.edges.length) % product.images.edges.length);
+  }, [product]);
 
   useEffect(() => {
     const loadProduct = async () => {
@@ -176,9 +218,14 @@ const Product = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1 pb-24 md:pb-8">
-        {/* Mobile: Full-width image */}
+        {/* Mobile: Full-width swipeable image gallery */}
         <div className="md:hidden">
-          <div className="relative">
+          <div 
+            className="relative"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             <Button
               variant="ghost"
               size="icon"
@@ -187,12 +234,31 @@ const Product = () => {
             >
               <ArrowLeft className="h-5 w-5" />
             </Button>
-            <div className="w-full aspect-square bg-muted">
+            
+            {/* Navigation arrows */}
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={goToPrevImage}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 bg-background/80 backdrop-blur-sm rounded-full flex items-center justify-center z-10 active:scale-95 transition-transform"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button
+                  onClick={goToNextImage}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 bg-background/80 backdrop-blur-sm rounded-full flex items-center justify-center z-10 active:scale-95 transition-transform"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </>
+            )}
+            
+            <div className="w-full aspect-square bg-muted overflow-hidden">
               {images[selectedImage]?.node ? (
                 <img
                   src={images[selectedImage].node.url}
                   alt={images[selectedImage].node.altText || product.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-opacity duration-300"
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-muted-foreground">
@@ -200,7 +266,25 @@ const Product = () => {
                 </div>
               )}
             </div>
+            
+            {/* Image counter and dots */}
+            {images.length > 1 && (
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10">
+                {images.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setSelectedImage(idx)}
+                    className={`transition-all rounded-full ${
+                      idx === selectedImage 
+                        ? 'w-6 h-2 bg-accent' 
+                        : 'w-2 h-2 bg-background/60'
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
+          
           {/* Thumbnail strip */}
           {images.length > 1 && (
             <div className="flex gap-2 overflow-x-auto p-3 bg-muted/30">
