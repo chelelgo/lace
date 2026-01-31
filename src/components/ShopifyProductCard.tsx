@@ -5,7 +5,6 @@ import { useCartStore } from '@/stores/cartStore';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { toast } from 'sonner';
-import { formatPrice } from '@/lib/currency';
 
 interface ShopifyProductCardProps {
   product: ShopifyProduct;
@@ -125,25 +124,25 @@ const ShopifyProductCard = ({ product }: ShopifyProductCardProps) => {
           </>
         )}
       </div>
-      <div className="p-3 md:p-4 flex flex-col flex-1">
-        <h3 className="font-bold text-sm md:text-lg uppercase truncate">{node.title}</h3>
-        <p className="text-xs md:text-sm text-muted-foreground line-clamp-1 hidden sm:block mt-1">
+      <div className="p-2 md:p-3 flex flex-col flex-1">
+        <h3 className="font-bold text-xs md:text-sm uppercase truncate">{node.title}</h3>
+        <p className="text-[10px] md:text-xs text-muted-foreground line-clamp-4 mt-1 flex-1">
           {node.description || 'No description available'}
         </p>
-        <div className="flex items-center justify-between pt-2 md:pt-3 mt-auto">
-          <span className="text-sm md:text-lg font-bold">
-            {formatPrice(price.amount, price.currencyCode)}
+        <div className="flex items-center justify-between pt-2 mt-auto">
+          <span className="text-xs md:text-sm font-bold">
+            {price.currencyCode} {parseFloat(price.amount).toLocaleString()}
           </span>
           <Button 
             size="sm" 
             onClick={handleAddToCart}
             disabled={isLoading || !firstVariant?.availableForSale}
-            className="bg-accent hover:bg-accent/90 text-accent-foreground h-8 w-8 md:h-9 md:w-auto md:px-3 p-0 md:p-2"
+            className="bg-accent hover:bg-accent/90 text-accent-foreground h-7 w-7 md:h-8 md:w-8 p-0"
           >
             {isLoading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
+              <Loader2 className="h-3 w-3 animate-spin" />
             ) : (
-              <ShoppingCart className="h-4 w-4" />
+              <ShoppingCart className="h-3 w-3" />
             )}
           </Button>
         </div>
