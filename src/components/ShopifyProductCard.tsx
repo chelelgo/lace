@@ -5,6 +5,7 @@ import { useCartStore } from '@/stores/cartStore';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { toast } from 'sonner';
+import { formatPrice } from '@/lib/currency';
 
 interface ShopifyProductCardProps {
   product: ShopifyProduct;
@@ -72,7 +73,7 @@ const ShopifyProductCard = ({ product }: ShopifyProductCardProps) => {
   return (
     <Link 
       to={`/product/${node.handle}`}
-      className="group block border border-border bg-card overflow-hidden hover:border-accent transition-all duration-300"
+      className="group flex flex-col border border-border bg-card overflow-hidden hover:border-accent transition-all duration-300 h-full"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => {
         setIsHovering(false);
@@ -124,14 +125,14 @@ const ShopifyProductCard = ({ product }: ShopifyProductCardProps) => {
           </>
         )}
       </div>
-      <div className="p-3 md:p-4 space-y-2 md:space-y-3">
+      <div className="p-3 md:p-4 flex flex-col flex-1">
         <h3 className="font-bold text-sm md:text-lg uppercase truncate">{node.title}</h3>
-        <p className="text-xs md:text-sm text-muted-foreground line-clamp-2 hidden sm:block">
+        <p className="text-xs md:text-sm text-muted-foreground line-clamp-1 hidden sm:block mt-1">
           {node.description || 'No description available'}
         </p>
-        <div className="flex items-center justify-between pt-1 md:pt-2">
+        <div className="flex items-center justify-between pt-2 md:pt-3 mt-auto">
           <span className="text-sm md:text-lg font-bold">
-            {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
+            {formatPrice(price.amount, price.currencyCode)}
           </span>
           <Button 
             size="sm" 
