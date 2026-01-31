@@ -5,6 +5,7 @@ import { useCartStore } from '@/stores/cartStore';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { toast } from 'sonner';
+import { formatPrice } from '@/lib/currency';
 
 interface ShopifyProductCardProps {
   product: ShopifyProduct;
@@ -131,7 +132,7 @@ const ShopifyProductCard = ({ product }: ShopifyProductCardProps) => {
         </p>
         <div className="flex items-center justify-between pt-2 mt-auto">
           <span className="text-xs md:text-sm font-bold">
-            {price.currencyCode} {parseFloat(price.amount).toLocaleString()}
+            {formatPrice(price.amount, price.currencyCode)}
           </span>
           <Button 
             size="sm" 
