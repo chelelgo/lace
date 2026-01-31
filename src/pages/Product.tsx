@@ -2,7 +2,6 @@ import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchProductByHandle } from '@/lib/shopify';
 import { useCartStore } from '@/stores/cartStore';
-import { formatPrice } from '@/lib/currency';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -362,7 +361,7 @@ const Product = () => {
               <div>
                 <h1 className="text-3xl lg:text-4xl font-bold uppercase mb-2">{product.title}</h1>
                 <p className="text-2xl font-bold text-accent">
-                  {formatPrice(price.amount, price.currencyCode)}
+                  {price.currencyCode} {parseFloat(price.amount).toLocaleString()}
                 </p>
               </div>
 
@@ -474,7 +473,7 @@ const Product = () => {
           <div>
             <h1 className="text-xl font-bold uppercase leading-tight">{product.title}</h1>
             <p className="text-xl font-bold text-accent mt-1">
-              {formatPrice(price.amount, price.currencyCode)}
+              {price.currencyCode} {parseFloat(price.amount).toLocaleString()}
             </p>
           </div>
 
@@ -562,7 +561,7 @@ const Product = () => {
         <div className="md:hidden fixed bottom-0 left-0 right-0 bg-background border-t border-border p-3 flex items-center gap-3 z-50">
           <div className="flex-1">
             <p className="text-lg font-bold text-accent">
-              {formatPrice(price.amount, price.currencyCode)}
+              {price.currencyCode} {parseFloat(price.amount).toLocaleString()}
             </p>
             {selectedVariant && (
               <p className="text-xs text-muted-foreground truncate">
