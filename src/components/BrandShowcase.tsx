@@ -5,6 +5,7 @@ import { ChevronRight, Loader2 } from 'lucide-react';
 import { useShopifyProducts } from '@/hooks/useShopifyProducts';
 import { useCartStore } from '@/stores/cartStore';
 import { toast } from 'sonner';
+import { formatPrice } from '@/lib/currency';
 
 interface BrandShowcaseProps {
   brand: Brand;
@@ -109,7 +110,7 @@ const BrandShowcase = ({ brand }: BrandShowcaseProps) => {
                       </h4>
                     </Link>
                     <p className="text-sm md:text-lg font-bold" style={{ color: brand.accentColor }}>
-                      {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
+                      {formatPrice(price.amount, price.currencyCode)}
                     </p>
                     <p className="text-xs md:text-sm leading-relaxed line-clamp-2 text-muted-foreground hidden sm:block">
                       {node.description || 'Premium quality sneaker'}

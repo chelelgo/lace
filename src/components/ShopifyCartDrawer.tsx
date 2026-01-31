@@ -4,12 +4,15 @@ import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2 } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
+import { formatPrice, convertToUSD } from '@/lib/currency';
 
 export const ShopifyCartDrawer = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { items, isLoading, isSyncing, updateQuantity, removeItem, getCheckoutUrl, syncCart } = useCartStore();
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = items.reduce((sum, item) => sum + (parseFloat(item.price.amount) * item.quantity), 0);
+  const totalPriceKES = items.reduce((sum, item) => sum + (parseFloat(item.price.amount) * item.quantity), 0);
+  const currencyCode = items[0]?.price.currencyCode || 'KES';
+  const totalConverted = convertToUSD(totalPriceKES, currencyCode);
 
   useEffect(() => { if (isOpen) syncCart(); }, [isOpen, syncCart]);
 
@@ -62,7 +65,7 @@ export const ShopifyCartDrawer = () => {
                       <div className="flex-1 min-w-0">
                         <h4 className="font-medium truncate">{item.product.node.title}</h4>
                         <p className="text-sm text-muted-foreground">{item.selectedOptions.map(option => option.value).join(' • ')}</p>
-                        <p className="font-semibold">{item.price.currencyCode} {parseFloat(item.price.amount).toFixed(2)}</p>
+                        <p className="font-semibold">{formatPrice(item.price.amount, item.price.currencyCode)}</p>
                       </div>
                       <div className="flex flex-col items-end gap-2 flex-shrink-0">
                         <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => removeItem(item.variantId)} disabled={isLoading}>
@@ -85,7 +88,7 @@ export const ShopifyCartDrawer = () => {
               <div className="flex-shrink-0 space-y-4 pt-4 border-t bg-background">
                 <div className="flex justify-between items-center">
                   <span className="text-lg font-semibold">Total</span>
-                  <span className="text-xl font-bold">{items[0]?.price.currencyCode || 'KES'} {totalPrice.toFixed(2)}</span>
+                  <span className="text-xl font-bold">{totalConverted.currency} {totalConverted.amount.toFixed(2)}</span>
                 </div>
                 <Button onClick={handleCheckout} className="w-full" size="lg" disabled={items.length === 0 || isLoading || isSyncing}>
                   {isLoading || isSyncing ? <Loader2 className="w-4 h-4 animate-spin" /> : <><ExternalLink className="w-4 h-4 mr-2" />Checkout with Shopify</>}
