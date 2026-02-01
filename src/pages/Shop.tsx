@@ -10,8 +10,15 @@ const Shop = () => {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative py-12 md:py-16 lg:py-20 bg-primary text-primary-foreground border-b-4 border-accent">
-          <div className="container px-4 md:px-6 lg:px-12">
+        <section className="relative py-12 md:py-16 lg:py-20 text-primary-foreground border-b-4 border-accent overflow-hidden">
+          {/* Background Image */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=1920&h=600&fit=crop)' }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/70 to-black/60" />
+          
+          <div className="container relative z-10 px-4 md:px-6 lg:px-12">
             <div className="max-w-4xl animate-fade-up">
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 text-white">
                 Our Collection

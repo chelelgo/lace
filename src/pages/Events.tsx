@@ -56,8 +56,15 @@ const Events = () => {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative py-32 md:py-40 bg-primary text-primary-foreground">
-          <div className="container px-6 md:px-12">
+        <section className="relative py-32 md:py-40 text-primary-foreground overflow-hidden">
+          {/* Background Image */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=1920&h=800&fit=crop)' }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/70 to-black/50" />
+          
+          <div className="container relative z-10 px-6 md:px-12">
             <div className="max-w-4xl animate-fade-up">
               <h1 className="mb-8 text-white">
                 Step Into<br />The Culture
