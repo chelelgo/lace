@@ -26,7 +26,7 @@ const BrandInfo = () => {
               and honoring the threads that tie us all.
             </p>
             <p className="text-base md:text-lg lg:text-xl font-light leading-relaxed text-muted-foreground">
-              From the streets of Nairobi to global runways, we champion authentic expression 
+              From the streets to global runways, we champion authentic expression 
               and the artistry of movement. Because every step tells a story.
             </p>
             <p className="text-2xl md:text-3xl lg:text-4xl font-light italic text-accent mt-6 md:mt-8">
