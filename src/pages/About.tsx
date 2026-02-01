@@ -44,7 +44,7 @@ const About = () => {
                     But as we grew, we realized something powerful: <span className="italic">every sneaker needs its laces.</span> And every culture needs connection. So we evolved.
                   </p>
                   <p>
-                    Today, <span className="font-bold">Lace</span> is the thread that ties it all together — sneakers, streetwear, community, and creativity. From our roots in Kenya to a global movement, we're building Africa's most loved sneaker and lifestyle brand.
+                    Today, <span className="font-bold">Lace</span> is the thread that ties it all together — sneakers, streetwear, community, and creativity. From our roots in Kenya to a global movement, we're building the world's most loved sneaker and lifestyle brand.
                   </p>
                   <p className="text-accent italic font-medium pt-4">
                     "What ties you?"
