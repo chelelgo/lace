@@ -2,15 +2,34 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import heroImage from '@/assets/hero-shoes.png';
 
+const backgroundImages = [
+  'https://images.unsplash.com/photo-1556906781-9cba4a8e7e37?w=1920&h=1080&fit=crop',
+  'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=1920&h=1080&fit=crop',
+  'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1920&h=1080&fit=crop',
+];
+
 const Hero = () => {
   return (
     <section className="relative w-full min-h-[85vh] md:min-h-screen flex items-center justify-center overflow-hidden bg-black">
-      {/* Background Image with Overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroImage})` }}
-      />
-      <div className="absolute inset-0 bg-black/50" />
+      {/* Multiple Background Images with Blend */}
+      <div className="absolute inset-0">
+        {/* Primary hero image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${heroImage})` }}
+        />
+        {/* Secondary image overlay for depth */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-overlay"
+          style={{ backgroundImage: `url(${backgroundImages[0]})` }}
+        />
+        {/* Third image for texture */}
+        <div 
+          className="absolute inset-0 bg-cover bg-right opacity-20 mix-blend-soft-light"
+          style={{ backgroundImage: `url(${backgroundImages[1]})` }}
+        />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70" />
       
       {/* Content */}
       <div className="container relative z-10 max-w-7xl px-4 md:px-6 lg:px-12 py-16 md:py-0">
