@@ -2,7 +2,22 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Instagram, ExternalLink, Heart, MessageCircle } from 'lucide-react';
+import { Instagram, Heart, MessageCircle } from 'lucide-react';
+
+const instagramCommunities = [
+  { 
+    name: 'Lace Africa', 
+    handle: '@lace.africa', 
+    url: 'https://www.instagram.com/lace.africa/',
+    region: '🌍 Africa'
+  },
+  { 
+    name: 'Lace Australia', 
+    handle: '@lace.australia', 
+    url: 'https://www.instagram.com/lace.australia/',
+    region: '🦘 Australia'
+  },
+];
 
 const instagramPosts = [
   { id: 1, image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop', likes: 234, comments: 18 },
@@ -29,19 +44,22 @@ const Community = () => {
                 Laced<br />Together
               </h1>
               <p className="text-xl md:text-2xl max-w-3xl font-light text-white/90 leading-relaxed">
-                Join our growing online community of sneaker enthusiasts. Share your fits, discover new styles, and connect with fellow sneakerheads from across Africa.
+                Join our growing global community of sneaker enthusiasts. Share your fits, discover new styles, and connect with fellow sneakerheads worldwide.
               </p>
-              <div className="mt-8">
-                <Button 
-                  size="lg"
-                  className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold uppercase tracking-wider px-8"
-                  asChild
-                >
-                  <a href="https://www.instagram.com/lace.africa/" target="_blank" rel="noopener noreferrer">
-                    <Instagram className="mr-2 h-5 w-5" />
-                    Follow @lace.africa
-                  </a>
-                </Button>
+              <div className="mt-8 flex flex-wrap gap-4">
+                {instagramCommunities.map((community) => (
+                  <Button 
+                    key={community.handle}
+                    size="lg"
+                    className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold uppercase tracking-wider px-6"
+                    asChild
+                  >
+                    <a href={community.url} target="_blank" rel="noopener noreferrer">
+                      <Instagram className="mr-2 h-5 w-5" />
+                      {community.handle}
+                    </a>
+                  </Button>
+                ))}
               </div>
             </div>
           </div>
@@ -174,20 +192,23 @@ const Community = () => {
                   Follow us on Instagram and join the conversation. Share your passion. Stay laced.
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  size="lg"
-                  className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold uppercase tracking-wider px-8"
-                  asChild
-                >
-                  <a href="https://www.instagram.com/lace.africa/" target="_blank" rel="noopener noreferrer">
-                    <Instagram className="mr-2 h-5 w-5" />
-                    Follow @lace.africa
-                  </a>
-                </Button>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
+                {instagramCommunities.map((community) => (
+                  <Button 
+                    key={community.handle}
+                    size="lg"
+                    className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold uppercase tracking-wider px-6"
+                    asChild
+                  >
+                    <a href={community.url} target="_blank" rel="noopener noreferrer">
+                      <Instagram className="mr-2 h-5 w-5" />
+                      {community.region} {community.handle}
+                    </a>
+                  </Button>
+                ))}
               </div>
               <p className="text-center mt-6 text-white/60 text-sm">
-                Use <span className="text-accent font-bold">#StayLaced</span> to get featured on our page
+                Use <span className="text-accent font-bold">#StayLaced</span> to get featured on our pages
               </p>
             </div>
           </div>
