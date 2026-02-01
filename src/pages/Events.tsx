@@ -1,6 +1,6 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Calendar, MapPin, Clock, Users } from 'lucide-react';
+import { Calendar, Clock, Users, Video } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const events = [
@@ -8,10 +8,9 @@ const events = [
     id: 1,
     title: "Lace Brand Launch 2026",
     date: "March 7, 2025",
-    time: "2:00 PM - 8:00 PM",
-    location: "Downtown Convention Centre",
+    time: "2:00 PM - 8:00 PM EAT",
     attendees: 500,
-    description: "Join us for our biggest launch event featuring exclusive sneaker drops, live customization stations, and meet-and-greets with top designers.",
+    description: "Join us for our biggest virtual launch event featuring exclusive sneaker drops, live customization demos, and Q&A sessions with top designers.",
     status: "upcoming",
     image: "https://images.unsplash.com/photo-1556906781-9cba4a8e7e37?w=800&h=600&fit=crop"
   },
@@ -19,10 +18,9 @@ const events = [
     id: 2,
     title: "Sneaker Culture Summit",
     date: "April 22, 2026",
-    time: "2:00 PM - 8:00 PM",
-    location: "Urban Arts District",
+    time: "2:00 PM - 8:00 PM EAT",
     attendees: 350,
-    description: "A day dedicated to sneaker culture with panel discussions, workshops, and exclusive vendor booths from leading brands.",
+    description: "A virtual day dedicated to sneaker culture with panel discussions, styling workshops, and exclusive reveals from leading brands.",
     status: "upcoming",
     image: "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=800&h=600&fit=crop"
   },
@@ -30,10 +28,9 @@ const events = [
     id: 3,
     title: "Lace x Xceed Collaboration Launch",
     date: "May 8, 2026",
-    time: "7:00 PM - 11:00 PM",
-    location: "Lace Flagship Store",
+    time: "7:00 PM - 11:00 PM EAT",
     attendees: 200,
-    description: "Be the first to experience our exclusive collaboration with Nike. Limited edition releases, DJ performances, and special giveaways.",
+    description: "Be the first to experience our exclusive collaboration launch. Live stream includes DJ performances, giveaways, and limited edition releases.",
     status: "upcoming",
     image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&h=600&fit=crop"
   },
@@ -41,10 +38,9 @@ const events = [
     id: 4,
     title: "Festive Kickoff Fest",
     date: "November 20, 2025",
-    time: "5:00 PM - 9:00 PM",
-    location: "City Square Plaza",
+    time: "5:00 PM - 9:00 PM EAT",
     attendees: 450,
-    description: "Started the year with style! Featured winter collections, hot chocolate bar, and community sneaker swaps.",
+    description: "Started the year with style! Featured winter collections showcase, live styling sessions, and community sneaker stories.",
     status: "past",
     image: "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?w=800&h=600&fit=crop"
   },
@@ -67,7 +63,7 @@ const Events = () => {
                 Step Into<br />The Culture
               </h1>
               <p className="text-xl md:text-2xl max-w-3xl font-light text-white/90 leading-relaxed">
-                Lace events connect people through fashion, music, and art. Experience the drops, meet the community, and celebrate what ties us together.
+                Lace virtual events connect people through fashion, music, and art. Experience the drops, meet the community, and celebrate what ties us together — all from anywhere in the world.
               </p>
             </div>
           </div>
@@ -77,9 +73,9 @@ const Events = () => {
         <section className="py-24 md:py-32 bg-background">
           <div className="container px-6 md:px-12">
             <div className="mb-16">
-              <h2 className="uppercase mb-4">Upcoming Events</h2>
+              <h2 className="uppercase mb-4">Upcoming Virtual Events</h2>
               <p className="text-lg font-light text-muted-foreground">
-                Reserve your spot. Experience the culture firsthand.
+                Reserve your spot. Experience the culture from anywhere.
               </p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -95,7 +91,7 @@ const Events = () => {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute top-4 right-4 bg-accent text-accent-foreground px-4 py-2 text-xs font-bold uppercase tracking-wider">
-                      Upcoming
+                      Virtual Event
                     </div>
                   </div>
                   <div className="p-6 space-y-4">
@@ -115,8 +111,8 @@ const Events = () => {
                         <span>{event.time}</span>
                       </div>
                       <div className="flex items-center gap-3 text-foreground">
-                        <MapPin className="h-4 w-4 text-accent" />
-                        <span>{event.location}</span>
+                        <Video className="h-4 w-4 text-accent" />
+                        <span>Live Stream</span>
                       </div>
                       <div className="flex items-center gap-3 text-foreground">
                         <Users className="h-4 w-4 text-accent" />
@@ -124,7 +120,7 @@ const Events = () => {
                       </div>
                     </div>
                     <Button className="w-full mt-6 bg-accent hover:bg-accent/90 text-accent-foreground font-bold uppercase tracking-wider">
-                      Reserve Spot
+                      Register Now
                     </Button>
                   </div>
                 </div>
@@ -170,7 +166,7 @@ const Events = () => {
                       </div>
                       <div className="flex items-center gap-3 text-foreground">
                         <Users className="h-4 w-4" />
-                        <span>{event.attendees} attendees</span>
+                        <span>{event.attendees} attended</span>
                       </div>
                     </div>
                   </div>
@@ -186,7 +182,7 @@ const Events = () => {
             <div className="max-w-3xl mx-auto text-center space-y-8 animate-fade-in">
               <h2 className="uppercase text-white">Stay Connected</h2>
               <p className="text-xl font-light text-white/90">
-                Sign up for event notifications and never miss a drop, meetup, or collaboration.
+                Sign up for event notifications and never miss a virtual drop, session, or collaboration.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6 max-w-md mx-auto">
                 <input 
