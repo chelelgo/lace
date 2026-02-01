@@ -182,7 +182,7 @@ const Community = () => {
                 <div className="text-4xl mb-4">🌍</div>
                 <h3 className="text-xl font-bold uppercase mb-3">African Sneaker Culture</h3>
                 <p className="text-muted-foreground font-light leading-relaxed">
-                  Connect with sneakerheads across Africa and celebrate our unique style and culture.
+                  Connect with sneakerheads across the world and celebrate our unique style and culture.
                 </p>
               </div>
             </div>
