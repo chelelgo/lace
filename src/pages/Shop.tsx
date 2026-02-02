@@ -1,9 +1,60 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import ShopifyProductGrid from '@/components/ShopifyProductGrid';
+import ShopFilters, { categories, brands } from '@/components/ShopFilters';
+import ShopifyProductCard from '@/components/ShopifyProductCard';
+import { fetchProducts, ShopifyProduct } from '@/lib/shopify';
+import { Loader2, PackageX } from 'lucide-react';
 
 const Shop = () => {
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedBrand, setSelectedBrand] = useState('all');
+  const [products, setProducts] = useState<ShopifyProduct[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Build Shopify search query from filters
+  const buildSearchQuery = () => {
+    const queries: string[] = [];
+    
+    const selectedCategoryOption = categories.find(c => c.id === selectedCategory);
+    if (selectedCategoryOption?.query) {
+      queries.push(`(${selectedCategoryOption.query})`);
+    }
+    
+    const selectedBrandOption = brands.find(b => b.id === selectedBrand);
+    if (selectedBrandOption?.query) {
+      queries.push(`(${selectedBrandOption.query})`);
+    }
+    
+    return queries.length > 0 ? queries.join(' AND ') : undefined;
+  };
+
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const query = buildSearchQuery();
+        const data = await fetchProducts(50, query);
+        setProducts(data);
+      } catch (err) {
+        console.error('Failed to fetch products:', err);
+        setError('Failed to load products');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadProducts();
+  }, [selectedCategory, selectedBrand]);
+
+  const handleClearFilters = () => {
+    setSelectedCategory('all');
+    setSelectedBrand('all');
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
@@ -40,8 +91,59 @@ const Shop = () => {
               </p>
               <div className="h-1 w-16 md:w-20 bg-accent mt-3 md:mt-4" />
             </div>
+
+            {/* Filters */}
+            <ShopFilters
+              selectedCategory={selectedCategory}
+              selectedBrand={selectedBrand}
+              onCategoryChange={setSelectedCategory}
+              onBrandChange={setSelectedBrand}
+              onClearFilters={handleClearFilters}
+            />
+
+            {/* Product Count */}
+            {!isLoading && !error && (
+              <div className="mb-6 text-sm text-muted-foreground">
+                Showing {products.length} {products.length === 1 ? 'product' : 'products'}
+                {(selectedCategory !== 'all' || selectedBrand !== 'all') && ' (filtered)'}
+              </div>
+            )}
             
-            <ShopifyProductGrid />
+            {/* Loading State */}
+            {isLoading && (
+              <div className="flex items-center justify-center py-20">
+                <Loader2 className="h-8 w-8 animate-spin text-accent" />
+              </div>
+            )}
+
+            {/* Error State */}
+            {error && !isLoading && (
+              <div className="text-center py-20">
+                <p className="text-destructive">{error}</p>
+              </div>
+            )}
+
+            {/* Empty State */}
+            {!isLoading && !error && products.length === 0 && (
+              <div className="text-center py-20 space-y-4">
+                <PackageX className="h-16 w-16 mx-auto text-muted-foreground" />
+                <h3 className="text-xl font-bold">No products found</h3>
+                <p className="text-muted-foreground max-w-md mx-auto">
+                  {selectedCategory !== 'all' || selectedBrand !== 'all'
+                    ? "No products match your current filters. Try adjusting or clearing filters."
+                    : "Your store doesn't have any products yet. Create your first product by telling me what you'd like to sell!"}
+                </p>
+              </div>
+            )}
+
+            {/* Products Grid */}
+            {!isLoading && !error && products.length > 0 && (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4 lg:gap-6">
+                {products.map((product) => (
+                  <ShopifyProductCard key={product.node.id} product={product} />
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
