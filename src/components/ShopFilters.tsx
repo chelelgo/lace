@@ -1,23 +1,23 @@
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { cn } from '@/lib/utils';
 import { Filter, X } from 'lucide-react';
 
 export interface FilterOption {
   id: string;
   label: string;
-  query: string; // Shopify search query
+  query: string;
 }
 
 interface ShopFiltersProps {
-  selectedCategory: string;
-  selectedBrand: string;
-  onCategoryChange: (category: string) => void;
-  onBrandChange: (brand: string) => void;
+  selectedCategories: string[];
+  selectedBrands: string[];
+  onCategoryToggle: (categoryId: string) => void;
+  onBrandToggle: (brandId: string) => void;
   onClearFilters: () => void;
 }
 
 export const categories: FilterOption[] = [
-  { id: 'all', label: 'All Shoes', query: '' },
   { id: 'sneakers', label: 'Sneakers', query: 'product_type:Sneakers OR tag:sneakers' },
   { id: 'running', label: 'Running', query: 'product_type:Running OR tag:running' },
   { id: 'basketball', label: 'Basketball', query: 'product_type:Basketball OR tag:basketball' },
@@ -29,7 +29,6 @@ export const categories: FilterOption[] = [
 ];
 
 export const brands: FilterOption[] = [
-  { id: 'all', label: 'All Brands', query: '' },
   { id: 'nike', label: 'Nike', query: 'vendor:Nike' },
   { id: 'jordan', label: 'Air Jordan', query: 'vendor:Jordan OR title:Jordan' },
   { id: 'adidas', label: 'Adidas', query: 'vendor:Adidas' },
@@ -44,76 +43,99 @@ export const brands: FilterOption[] = [
 ];
 
 const ShopFilters = ({
-  selectedCategory,
-  selectedBrand,
-  onCategoryChange,
-  onBrandChange,
+  selectedCategories,
+  selectedBrands,
+  onCategoryToggle,
+  onBrandToggle,
   onClearFilters,
 }: ShopFiltersProps) => {
-  const hasActiveFilters = selectedCategory !== 'all' || selectedBrand !== 'all';
+  const hasActiveFilters = selectedCategories.length > 0 || selectedBrands.length > 0;
 
   return (
-    <div className="space-y-6 mb-8 md:mb-12">
+    <div className="space-y-6">
       {/* Filter Header */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-muted-foreground">
+        <div className="flex items-center gap-2">
           <Filter className="h-4 w-4" />
-          <span className="text-sm font-medium uppercase tracking-wider">Filters</span>
+          <span className="text-sm font-bold uppercase tracking-wider">Filters</span>
         </div>
         {hasActiveFilters && (
           <Button
             variant="ghost"
             size="sm"
             onClick={onClearFilters}
-            className="text-muted-foreground hover:text-foreground"
+            className="text-muted-foreground hover:text-foreground h-auto p-1"
           >
-            <X className="h-4 w-4 mr-1" />
-            Clear All
+            <X className="h-4 w-4" />
           </Button>
         )}
       </div>
 
       {/* Category Filter */}
-      <div>
-        <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wider">Categories</h3>
-        <div className="flex flex-wrap gap-2">
+      <div className="border-t pt-4">
+        <h3 className="text-sm font-semibold mb-4 text-foreground uppercase tracking-wider">Categories</h3>
+        <div className="space-y-3">
           {categories.map((category) => (
-            <Button
+            <label
               key={category.id}
-              variant={selectedCategory === category.id ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => onCategoryChange(category.id)}
-              className={cn(
-                'transition-all text-xs md:text-sm',
-                selectedCategory === category.id && 'shadow-md'
-              )}
+              className="flex items-center gap-3 cursor-pointer group"
             >
-              {category.label}
-            </Button>
+              <Checkbox
+                checked={selectedCategories.includes(category.id)}
+                onCheckedChange={() => onCategoryToggle(category.id)}
+              />
+              <span className={cn(
+                "text-sm transition-colors",
+                selectedCategories.includes(category.id) 
+                  ? "text-foreground font-medium" 
+                  : "text-muted-foreground group-hover:text-foreground"
+              )}>
+                {category.label}
+              </span>
+            </label>
           ))}
         </div>
       </div>
 
       {/* Brand Filter */}
-      <div>
-        <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wider">Brands</h3>
-        <div className="flex flex-wrap gap-2">
+      <div className="border-t pt-4">
+        <h3 className="text-sm font-semibold mb-4 text-foreground uppercase tracking-wider">Brands</h3>
+        <div className="space-y-3">
           {brands.map((brand) => (
-            <Button
+            <label
               key={brand.id}
-              variant={selectedBrand === brand.id ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => onBrandChange(brand.id)}
-              className={cn(
-                'transition-all text-xs md:text-sm',
-                selectedBrand === brand.id && 'shadow-md'
-              )}
+              className="flex items-center gap-3 cursor-pointer group"
             >
-              {brand.label}
-            </Button>
+              <Checkbox
+                checked={selectedBrands.includes(brand.id)}
+                onCheckedChange={() => onBrandToggle(brand.id)}
+              />
+              <span className={cn(
+                "text-sm transition-colors",
+                selectedBrands.includes(brand.id) 
+                  ? "text-foreground font-medium" 
+                  : "text-muted-foreground group-hover:text-foreground"
+              )}>
+                {brand.label}
+              </span>
+            </label>
           ))}
         </div>
       </div>
+
+      {/* Clear All Button */}
+      {hasActiveFilters && (
+        <div className="border-t pt-4">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onClearFilters}
+            className="w-full"
+          >
+            Clear All Filters
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
