@@ -1,7 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import { cn } from '@/lib/utils';
-import { Filter, X } from 'lucide-react';
 
 export interface FilterOption {
   id: string;
@@ -10,14 +8,14 @@ export interface FilterOption {
 }
 
 interface ShopFiltersProps {
-  selectedCategories: string[];
-  selectedBrands: string[];
-  onCategoryToggle: (categoryId: string) => void;
-  onBrandToggle: (brandId: string) => void;
-  onClearFilters: () => void;
+  selectedCategory: string;
+  selectedBrand: string;
+  onCategoryChange: (category: string) => void;
+  onBrandChange: (brand: string) => void;
 }
 
 export const categories: FilterOption[] = [
+  { id: 'all', label: 'All Shoes', query: '' },
   { id: 'sneakers', label: 'Sneakers', query: 'product_type:Sneakers OR tag:sneakers' },
   { id: 'running', label: 'Running', query: 'product_type:Running OR tag:running' },
   { id: 'basketball', label: 'Basketball', query: 'product_type:Basketball OR tag:basketball' },
@@ -29,6 +27,7 @@ export const categories: FilterOption[] = [
 ];
 
 export const brands: FilterOption[] = [
+  { id: 'all', label: 'All Brands', query: '' },
   { id: 'nike', label: 'Nike', query: 'vendor:Nike' },
   { id: 'jordan', label: 'Air Jordan', query: 'vendor:Jordan OR title:Jordan' },
   { id: 'adidas', label: 'Adidas', query: 'vendor:Adidas' },
@@ -43,99 +42,54 @@ export const brands: FilterOption[] = [
 ];
 
 const ShopFilters = ({
-  selectedCategories,
-  selectedBrands,
-  onCategoryToggle,
-  onBrandToggle,
-  onClearFilters,
+  selectedCategory,
+  selectedBrand,
+  onCategoryChange,
+  onBrandChange,
 }: ShopFiltersProps) => {
-  const hasActiveFilters = selectedCategories.length > 0 || selectedBrands.length > 0;
-
   return (
-    <div className="space-y-6">
-      {/* Filter Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Filter className="h-4 w-4" />
-          <span className="text-sm font-bold uppercase tracking-wider">Filters</span>
-        </div>
-        {hasActiveFilters && (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onClearFilters}
-            className="text-muted-foreground hover:text-foreground h-auto p-1"
-          >
-            <X className="h-4 w-4" />
-          </Button>
-        )}
-      </div>
-
+    <div className="space-y-6 mb-8 md:mb-12">
       {/* Category Filter */}
-      <div className="border-t pt-4">
-        <h3 className="text-sm font-semibold mb-4 text-foreground uppercase tracking-wider">Categories</h3>
-        <div className="space-y-3">
+      <div>
+        <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wider">Categories</h3>
+        <div className="flex flex-wrap gap-2">
           {categories.map((category) => (
-            <label
+            <Button
               key={category.id}
-              className="flex items-center gap-3 cursor-pointer group"
+              variant={selectedCategory === category.id ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => onCategoryChange(category.id)}
+              className={cn(
+                'transition-all text-xs md:text-sm',
+                selectedCategory === category.id && 'shadow-md'
+              )}
             >
-              <Checkbox
-                checked={selectedCategories.includes(category.id)}
-                onCheckedChange={() => onCategoryToggle(category.id)}
-              />
-              <span className={cn(
-                "text-sm transition-colors",
-                selectedCategories.includes(category.id) 
-                  ? "text-foreground font-medium" 
-                  : "text-muted-foreground group-hover:text-foreground"
-              )}>
-                {category.label}
-              </span>
-            </label>
+              {category.label}
+            </Button>
           ))}
         </div>
       </div>
 
       {/* Brand Filter */}
-      <div className="border-t pt-4">
-        <h3 className="text-sm font-semibold mb-4 text-foreground uppercase tracking-wider">Brands</h3>
-        <div className="space-y-3">
+      <div>
+        <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wider">Brands</h3>
+        <div className="flex flex-wrap gap-2">
           {brands.map((brand) => (
-            <label
+            <Button
               key={brand.id}
-              className="flex items-center gap-3 cursor-pointer group"
+              variant={selectedBrand === brand.id ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => onBrandChange(brand.id)}
+              className={cn(
+                'transition-all text-xs md:text-sm',
+                selectedBrand === brand.id && 'shadow-md'
+              )}
             >
-              <Checkbox
-                checked={selectedBrands.includes(brand.id)}
-                onCheckedChange={() => onBrandToggle(brand.id)}
-              />
-              <span className={cn(
-                "text-sm transition-colors",
-                selectedBrands.includes(brand.id) 
-                  ? "text-foreground font-medium" 
-                  : "text-muted-foreground group-hover:text-foreground"
-              )}>
-                {brand.label}
-              </span>
-            </label>
+              {brand.label}
+            </Button>
           ))}
         </div>
       </div>
-
-      {/* Clear All Button */}
-      {hasActiveFilters && (
-        <div className="border-t pt-4">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={onClearFilters}
-            className="w-full"
-          >
-            Clear All Filters
-          </Button>
-        </div>
-      )}
     </div>
   );
 };

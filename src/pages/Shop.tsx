@@ -5,43 +5,31 @@ import Footer from '@/components/Footer';
 import ShopFilters, { categories, brands } from '@/components/ShopFilters';
 import ShopifyProductCard from '@/components/ShopifyProductCard';
 import { fetchProducts, ShopifyProduct } from '@/lib/shopify';
-import { Loader2, PackageX, ChevronLeft, ChevronRight, SlidersHorizontal, X } from 'lucide-react';
+import { Loader2, PackageX, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
 const PRODUCTS_PER_PAGE = 12;
 
 const Shop = () => {
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedBrand, setSelectedBrand] = useState('all');
   const [allProducts, setAllProducts] = useState<ShopifyProduct[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   // Build Shopify search query from filters
   const buildSearchQuery = () => {
     const queries: string[] = [];
     
-    // Combine selected categories with OR
-    if (selectedCategories.length > 0) {
-      const categoryQueries = selectedCategories
-        .map(id => categories.find(c => c.id === id)?.query)
-        .filter(Boolean);
-      if (categoryQueries.length > 0) {
-        queries.push(`(${categoryQueries.join(' OR ')})`);
-      }
+    const selectedCategoryOption = categories.find(c => c.id === selectedCategory);
+    if (selectedCategoryOption?.query) {
+      queries.push(`(${selectedCategoryOption.query})`);
     }
     
-    // Combine selected brands with OR
-    if (selectedBrands.length > 0) {
-      const brandQueries = selectedBrands
-        .map(id => brands.find(b => b.id === id)?.query)
-        .filter(Boolean);
-      if (brandQueries.length > 0) {
-        queries.push(`(${brandQueries.join(' OR ')})`);
-      }
+    const selectedBrandOption = brands.find(b => b.id === selectedBrand);
+    if (selectedBrandOption?.query) {
+      queries.push(`(${selectedBrandOption.query})`);
     }
     
     return queries.length > 0 ? queries.join(' AND ') : undefined;
@@ -55,7 +43,7 @@ const Shop = () => {
         const query = buildSearchQuery();
         const data = await fetchProducts(100, query);
         setAllProducts(data);
-        setCurrentPage(1); // Reset to first page when filters change
+        setCurrentPage(1);
       } catch (err) {
         console.error('Failed to fetch products:', err);
         setError('Failed to load products');
@@ -65,28 +53,7 @@ const Shop = () => {
     };
 
     loadProducts();
-  }, [selectedCategories, selectedBrands]);
-
-  const handleCategoryToggle = (categoryId: string) => {
-    setSelectedCategories(prev => 
-      prev.includes(categoryId) 
-        ? prev.filter(id => id !== categoryId)
-        : [...prev, categoryId]
-    );
-  };
-
-  const handleBrandToggle = (brandId: string) => {
-    setSelectedBrands(prev => 
-      prev.includes(brandId) 
-        ? prev.filter(id => id !== brandId)
-        : [...prev, brandId]
-    );
-  };
-
-  const handleClearFilters = () => {
-    setSelectedCategories([]);
-    setSelectedBrands([]);
-  };
+  }, [selectedCategory, selectedBrand]);
 
   // Pagination logic
   const totalPages = Math.ceil(allProducts.length / PRODUCTS_PER_PAGE);
@@ -97,18 +64,6 @@ const Shop = () => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
-  const hasActiveFilters = selectedCategories.length > 0 || selectedBrands.length > 0;
-
-  const FilterContent = () => (
-    <ShopFilters
-      selectedCategories={selectedCategories}
-      selectedBrands={selectedBrands}
-      onCategoryToggle={handleCategoryToggle}
-      onBrandToggle={handleBrandToggle}
-      onClearFilters={handleClearFilters}
-    />
-  );
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -135,199 +90,124 @@ const Shop = () => {
           </div>
         </section>
 
-        {/* Products Section */}
+        {/* Products Grid */}
         <section className="py-10 md:py-16 lg:py-24">
           <div className="container px-4 md:px-6 lg:px-12">
-            <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-              
-              {/* Desktop Sidebar Filters */}
-              <aside className="hidden lg:block w-64 flex-shrink-0">
-                <div className="sticky top-24">
-                  <FilterContent />
+            <div className="mb-8 md:mb-12">
+              <h3 className="text-lg md:text-xl lg:text-2xl font-bold uppercase mb-2">All Products</h3>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Browse our complete collection
+              </p>
+              <div className="h-1 w-16 md:w-20 bg-accent mt-3 md:mt-4" />
+            </div>
+
+            {/* Filters */}
+            <ShopFilters
+              selectedCategory={selectedCategory}
+              selectedBrand={selectedBrand}
+              onCategoryChange={setSelectedCategory}
+              onBrandChange={setSelectedBrand}
+            />
+
+            {/* Product Count */}
+            {!isLoading && !error && (
+              <div className="mb-6 text-sm text-muted-foreground">
+                Showing {paginatedProducts.length} of {allProducts.length} products
+                {(selectedCategory !== 'all' || selectedBrand !== 'all') && ' (filtered)'}
+              </div>
+            )}
+            
+            {/* Loading State */}
+            {isLoading && (
+              <div className="flex items-center justify-center py-20">
+                <Loader2 className="h-8 w-8 animate-spin text-accent" />
+              </div>
+            )}
+
+            {/* Error State */}
+            {error && !isLoading && (
+              <div className="text-center py-20">
+                <p className="text-destructive">{error}</p>
+              </div>
+            )}
+
+            {/* Empty State */}
+            {!isLoading && !error && allProducts.length === 0 && (
+              <div className="text-center py-20 space-y-4">
+                <PackageX className="h-16 w-16 mx-auto text-muted-foreground" />
+                <h3 className="text-xl font-bold">No products found</h3>
+                <p className="text-muted-foreground max-w-md mx-auto">
+                  {selectedCategory !== 'all' || selectedBrand !== 'all'
+                    ? "No products match your current filters. Try adjusting your selection."
+                    : "Your store doesn't have any products yet. Create your first product by telling me what you'd like to sell!"}
+                </p>
+              </div>
+            )}
+
+            {/* Products Grid */}
+            {!isLoading && !error && paginatedProducts.length > 0 && (
+              <>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4 lg:gap-6">
+                  {paginatedProducts.map((product) => (
+                    <ShopifyProductCard key={product.node.id} product={product} />
+                  ))}
                 </div>
-              </aside>
 
-              {/* Main Content */}
-              <div className="flex-1">
-                {/* Mobile Filter Button & Header */}
-                <div className="flex items-center justify-between mb-6">
-                  <div>
-                    <h3 className="text-lg md:text-xl lg:text-2xl font-bold uppercase mb-1">All Products</h3>
-                    {!isLoading && !error && (
-                      <p className="text-sm text-muted-foreground">
-                        Showing {paginatedProducts.length} of {allProducts.length} products
-                        {hasActiveFilters && ' (filtered)'}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Mobile Filter Button */}
-                  <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
-                    <SheetTrigger asChild>
-                      <Button variant="outline" size="sm" className="lg:hidden">
-                        <SlidersHorizontal className="h-4 w-4 mr-2" />
-                        Filters
-                        {hasActiveFilters && (
-                          <span className="ml-2 bg-accent text-accent-foreground text-xs px-1.5 py-0.5 rounded-full">
-                            {selectedCategories.length + selectedBrands.length}
-                          </span>
-                        )}
-                      </Button>
-                    </SheetTrigger>
-                    <SheetContent side="left" className="w-80">
-                      <SheetHeader>
-                        <SheetTitle>Filters</SheetTitle>
-                      </SheetHeader>
-                      <div className="mt-6">
-                        <FilterContent />
-                      </div>
-                    </SheetContent>
-                  </Sheet>
-                </div>
-
-                {/* Active Filter Tags */}
-                {hasActiveFilters && (
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {selectedCategories.map(id => {
-                      const category = categories.find(c => c.id === id);
-                      return category ? (
-                        <Button
-                          key={id}
-                          variant="secondary"
-                          size="sm"
-                          onClick={() => handleCategoryToggle(id)}
-                          className="h-7 text-xs"
-                        >
-                          {category.label}
-                          <X className="h-3 w-3 ml-1" />
-                        </Button>
-                      ) : null;
-                    })}
-                    {selectedBrands.map(id => {
-                      const brand = brands.find(b => b.id === id);
-                      return brand ? (
-                        <Button
-                          key={id}
-                          variant="secondary"
-                          size="sm"
-                          onClick={() => handleBrandToggle(id)}
-                          className="h-7 text-xs"
-                        >
-                          {brand.label}
-                          <X className="h-3 w-3 ml-1" />
-                        </Button>
-                      ) : null;
-                    })}
+                {/* Pagination */}
+                {totalPages > 1 && (
+                  <div className="flex items-center justify-center gap-2 mt-12">
                     <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={handleClearFilters}
-                      className="h-7 text-xs text-muted-foreground"
+                      variant="outline"
+                      size="icon"
+                      onClick={() => goToPage(currentPage - 1)}
+                      disabled={currentPage === 1}
                     >
-                      Clear all
+                      <ChevronLeft className="h-4 w-4" />
+                    </Button>
+
+                    <div className="flex items-center gap-1">
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                        const showPage = 
+                          page === 1 || 
+                          page === totalPages || 
+                          Math.abs(page - currentPage) <= 1;
+                        
+                        const showEllipsis = 
+                          (page === 2 && currentPage > 3) ||
+                          (page === totalPages - 1 && currentPage < totalPages - 2);
+
+                        if (showEllipsis && !showPage) {
+                          return <span key={page} className="px-2 text-muted-foreground">...</span>;
+                        }
+
+                        if (!showPage) return null;
+
+                        return (
+                          <Button
+                            key={page}
+                            variant={currentPage === page ? 'default' : 'outline'}
+                            size="sm"
+                            onClick={() => goToPage(page)}
+                            className="w-9 h-9"
+                          >
+                            {page}
+                          </Button>
+                        );
+                      })}
+                    </div>
+
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => goToPage(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                    >
+                      <ChevronRight className="h-4 w-4" />
                     </Button>
                   </div>
                 )}
-                
-                {/* Loading State */}
-                {isLoading && (
-                  <div className="flex items-center justify-center py-20">
-                    <Loader2 className="h-8 w-8 animate-spin text-accent" />
-                  </div>
-                )}
-
-                {/* Error State */}
-                {error && !isLoading && (
-                  <div className="text-center py-20">
-                    <p className="text-destructive">{error}</p>
-                  </div>
-                )}
-
-                {/* Empty State */}
-                {!isLoading && !error && allProducts.length === 0 && (
-                  <div className="text-center py-20 space-y-4">
-                    <PackageX className="h-16 w-16 mx-auto text-muted-foreground" />
-                    <h3 className="text-xl font-bold">No products found</h3>
-                    <p className="text-muted-foreground max-w-md mx-auto">
-                      {hasActiveFilters
-                        ? "No products match your current filters. Try adjusting or clearing filters."
-                        : "Your store doesn't have any products yet. Create your first product by telling me what you'd like to sell!"}
-                    </p>
-                    {hasActiveFilters && (
-                      <Button variant="outline" onClick={handleClearFilters}>
-                        Clear Filters
-                      </Button>
-                    )}
-                  </div>
-                )}
-
-                {/* Products Grid */}
-                {!isLoading && !error && paginatedProducts.length > 0 && (
-                  <>
-                    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3 md:gap-4 lg:gap-6">
-                      {paginatedProducts.map((product) => (
-                        <ShopifyProductCard key={product.node.id} product={product} />
-                      ))}
-                    </div>
-
-                    {/* Pagination */}
-                    {totalPages > 1 && (
-                      <div className="flex items-center justify-center gap-2 mt-12">
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          onClick={() => goToPage(currentPage - 1)}
-                          disabled={currentPage === 1}
-                        >
-                          <ChevronLeft className="h-4 w-4" />
-                        </Button>
-
-                        <div className="flex items-center gap-1">
-                          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
-                            // Show first, last, current, and adjacent pages
-                            const showPage = 
-                              page === 1 || 
-                              page === totalPages || 
-                              Math.abs(page - currentPage) <= 1;
-                            
-                            const showEllipsis = 
-                              (page === 2 && currentPage > 3) ||
-                              (page === totalPages - 1 && currentPage < totalPages - 2);
-
-                            if (showEllipsis && !showPage) {
-                              return <span key={page} className="px-2 text-muted-foreground">...</span>;
-                            }
-
-                            if (!showPage) return null;
-
-                            return (
-                              <Button
-                                key={page}
-                                variant={currentPage === page ? 'default' : 'outline'}
-                                size="sm"
-                                onClick={() => goToPage(page)}
-                                className="w-9 h-9"
-                              >
-                                {page}
-                              </Button>
-                            );
-                          })}
-                        </div>
-
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          onClick={() => goToPage(currentPage + 1)}
-                          disabled={currentPage === totalPages}
-                        >
-                          <ChevronRight className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
-            </div>
+              </>
+            )}
           </div>
         </section>
 
