@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import ShopFilters, { categories, brands, sizes, PRICE_MIN, PRICE_MAX } from '@/components/ShopFilters';
+import ShopFilters, { categories, sizes, PRICE_MIN, PRICE_MAX } from '@/components/ShopFilters';
 import ShopifyProductCard from '@/components/ShopifyProductCard';
 import { fetchProducts, ShopifyProduct } from '@/lib/shopify';
 import { Loader2, PackageX, ChevronLeft, ChevronRight, SlidersHorizontal, X } from 'lucide-react';
@@ -13,7 +13,6 @@ const PRODUCTS_PER_PAGE = 30;
 
 const Shop = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([PRICE_MIN, PRICE_MAX]);
   const [allProducts, setAllProducts] = useState<ShopifyProduct[]>([]);
@@ -22,38 +21,13 @@ const Shop = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
-  // Build Shopify search query from category/brand filters
-  const buildSearchQuery = () => {
-    const queries: string[] = [];
-    
-    if (selectedCategories.length > 0) {
-      const categoryQueries = selectedCategories
-        .map(id => categories.find(c => c.id === id)?.query)
-        .filter(Boolean);
-      if (categoryQueries.length > 0) {
-        queries.push(`(${categoryQueries.join(' OR ')})`);
-      }
-    }
-    
-    if (selectedBrands.length > 0) {
-      const brandQueries = selectedBrands
-        .map(id => brands.find(b => b.id === id)?.query)
-        .filter(Boolean);
-      if (brandQueries.length > 0) {
-        queries.push(`(${brandQueries.join(' OR ')})`);
-      }
-    }
-    
-    return queries.length > 0 ? queries.join(' AND ') : undefined;
-  };
-
+  // Load all products once (no query filtering — all filtering is client-side)
   useEffect(() => {
     const loadProducts = async () => {
       try {
         setIsLoading(true);
         setError(null);
-        const query = buildSearchQuery();
-        const data = await fetchProducts(500, query);
+        const data = await fetchProducts(500);
         setAllProducts(data);
         setCurrentPage(1);
       } catch (err) {
@@ -65,12 +39,26 @@ const Shop = () => {
     };
 
     loadProducts();
-  }, [selectedCategories, selectedBrands]);
+  }, []);
 
-  // Client-side filtering for price and size
+  // Client-side filtering for category, price, and size
   const filteredProducts = useMemo(() => {
     return allProducts.filter(product => {
       const price = parseFloat(product.node.priceRange.minVariantPrice.amount);
+      const title = product.node.title.toLowerCase();
+      const description = product.node.description.toLowerCase();
+
+      // Category filter — match keywords against title and description
+      if (selectedCategories.length > 0) {
+        const matchesCategory = selectedCategories.some(catId => {
+          const category = categories.find(c => c.id === catId);
+          if (!category) return false;
+          return category.keywords.some(keyword =>
+            title.includes(keyword.toLowerCase()) || description.includes(keyword.toLowerCase())
+          );
+        });
+        if (!matchesCategory) return false;
+      }
 
       // Price filter
       if (price < priceRange[0]) return false;
@@ -89,26 +77,18 @@ const Shop = () => {
 
       return true;
     });
-  }, [allProducts, priceRange, selectedSizes]);
+  }, [allProducts, selectedCategories, priceRange, selectedSizes]);
 
-  // Reset page when client-side filters change
+  // Reset page when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [priceRange, selectedSizes]);
+  }, [selectedCategories, priceRange, selectedSizes]);
 
   const handleCategoryToggle = (categoryId: string) => {
     setSelectedCategories(prev =>
       prev.includes(categoryId)
         ? prev.filter(id => id !== categoryId)
         : [...prev, categoryId]
-    );
-  };
-
-  const handleBrandToggle = (brandId: string) => {
-    setSelectedBrands(prev =>
-      prev.includes(brandId)
-        ? prev.filter(id => id !== brandId)
-        : [...prev, brandId]
     );
   };
 
@@ -122,7 +102,6 @@ const Shop = () => {
 
   const handleClearFilters = () => {
     setSelectedCategories([]);
-    setSelectedBrands([]);
     setSelectedSizes([]);
     setPriceRange([PRICE_MIN, PRICE_MAX]);
   };
@@ -137,17 +116,15 @@ const Shop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const hasActiveFilters = selectedCategories.length > 0 || selectedBrands.length > 0 || selectedSizes.length > 0 || priceRange[0] !== PRICE_MIN || priceRange[1] !== PRICE_MAX;
-  const activeFilterCount = selectedCategories.length + selectedBrands.length + selectedSizes.length + (priceRange[0] !== PRICE_MIN || priceRange[1] !== PRICE_MAX ? 1 : 0);
+  const hasActiveFilters = selectedCategories.length > 0 || selectedSizes.length > 0 || priceRange[0] !== PRICE_MIN || priceRange[1] !== PRICE_MAX;
+  const activeFilterCount = selectedCategories.length + selectedSizes.length + (priceRange[0] !== PRICE_MIN || priceRange[1] !== PRICE_MAX ? 1 : 0);
 
   const FilterContent = () => (
     <ShopFilters
       selectedCategories={selectedCategories}
-      selectedBrands={selectedBrands}
       selectedSizes={selectedSizes}
       priceRange={priceRange}
       onCategoryToggle={handleCategoryToggle}
-      onBrandToggle={handleBrandToggle}
       onSizeToggle={handleSizeToggle}
       onPriceRangeChange={setPriceRange}
       onClearFilters={handleClearFilters}
@@ -243,21 +220,6 @@ const Shop = () => {
                           className="h-7 text-xs"
                         >
                           {category.label}
-                          <X className="h-3 w-3 ml-1" />
-                        </Button>
-                      ) : null;
-                    })}
-                    {selectedBrands.map(id => {
-                      const brand = brands.find(b => b.id === id);
-                      return brand ? (
-                        <Button
-                          key={id}
-                          variant="secondary"
-                          size="sm"
-                          onClick={() => handleBrandToggle(id)}
-                          className="h-7 text-xs"
-                        >
-                          {brand.label}
                           <X className="h-3 w-3 ml-1" />
                         </Button>
                       ) : null;
