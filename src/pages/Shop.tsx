@@ -9,7 +9,7 @@ import { Loader2, PackageX, ChevronLeft, ChevronRight, SlidersHorizontal, X } fr
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
-const PRODUCTS_PER_PAGE = 20;
+const PRODUCTS_PER_PAGE = 30;
 
 const Shop = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -53,7 +53,7 @@ const Shop = () => {
         setIsLoading(true);
         setError(null);
         const query = buildSearchQuery();
-        const data = await fetchProducts(250, query);
+        const data = await fetchProducts(500, query);
         setAllProducts(data);
         setCurrentPage(1);
       } catch (err) {
