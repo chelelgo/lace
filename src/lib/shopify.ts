@@ -53,8 +53,12 @@ export interface ShopifyProduct {
 }
 
 export const STOREFRONT_QUERY = `
-  query GetProducts($first: Int!, $query: String) {
-    products(first: $first, query: $query) {
+  query GetProducts($first: Int!, $query: String, $after: String) {
+    products(first: $first, query: $query, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
       edges {
         node {
           id
@@ -184,9 +188,25 @@ export async function storefrontApiRequest(query: string, variables: Record<stri
   return data;
 }
 
-export async function fetchProducts(first: number = 50, query?: string): Promise<ShopifyProduct[]> {
-  const data = await storefrontApiRequest(STOREFRONT_QUERY, { first, query });
-  return data?.data?.products?.edges || [];
+export async function fetchProducts(maxProducts: number = 250, query?: string): Promise<ShopifyProduct[]> {
+  const allProducts: ShopifyProduct[] = [];
+  let after: string | null = null;
+  
+  while (allProducts.length < maxProducts) {
+    const first = Math.min(250, maxProducts - allProducts.length);
+    const variables: Record<string, unknown> = { first, query };
+    if (after) variables.after = after;
+    
+    const data = await storefrontApiRequest(STOREFRONT_QUERY, variables);
+    const edges = data?.data?.products?.edges || [];
+    allProducts.push(...edges);
+    
+    const pageInfo = data?.data?.products?.pageInfo;
+    if (!pageInfo?.hasNextPage || edges.length === 0) break;
+    after = pageInfo.endCursor;
+  }
+  
+  return allProducts;
 }
 
 export async function fetchProductByHandle(handle: string) {
