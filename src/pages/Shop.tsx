@@ -1,30 +1,31 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import ShopFilters, { categories, brands } from '@/components/ShopFilters';
+import ShopFilters, { categories, brands, sizes, PRICE_MIN, PRICE_MAX } from '@/components/ShopFilters';
 import ShopifyProductCard from '@/components/ShopifyProductCard';
 import { fetchProducts, ShopifyProduct } from '@/lib/shopify';
 import { Loader2, PackageX, ChevronLeft, ChevronRight, SlidersHorizontal, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
-const PRODUCTS_PER_PAGE = 12;
+const PRODUCTS_PER_PAGE = 20;
 
 const Shop = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([PRICE_MIN, PRICE_MAX]);
   const [allProducts, setAllProducts] = useState<ShopifyProduct[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
-  // Build Shopify search query from filters
+  // Build Shopify search query from category/brand filters
   const buildSearchQuery = () => {
     const queries: string[] = [];
     
-    // Combine selected categories with OR
     if (selectedCategories.length > 0) {
       const categoryQueries = selectedCategories
         .map(id => categories.find(c => c.id === id)?.query)
@@ -34,7 +35,6 @@ const Shop = () => {
       }
     }
     
-    // Combine selected brands with OR
     if (selectedBrands.length > 0) {
       const brandQueries = selectedBrands
         .map(id => brands.find(b => b.id === id)?.query)
@@ -53,9 +53,9 @@ const Shop = () => {
         setIsLoading(true);
         setError(null);
         const query = buildSearchQuery();
-        const data = await fetchProducts(100, query);
+        const data = await fetchProducts(250, query);
         setAllProducts(data);
-        setCurrentPage(1); // Reset to first page when filters change
+        setCurrentPage(1);
       } catch (err) {
         console.error('Failed to fetch products:', err);
         setError('Failed to load products');
@@ -67,45 +67,89 @@ const Shop = () => {
     loadProducts();
   }, [selectedCategories, selectedBrands]);
 
+  // Client-side filtering for price and size
+  const filteredProducts = useMemo(() => {
+    return allProducts.filter(product => {
+      const price = parseFloat(product.node.priceRange.minVariantPrice.amount);
+
+      // Price filter
+      if (price < priceRange[0]) return false;
+      if (priceRange[1] < PRICE_MAX && price > priceRange[1]) return false;
+
+      // Size filter — check if any variant has a matching size option
+      if (selectedSizes.length > 0) {
+        const productSizes = product.node.variants.edges.flatMap(v =>
+          v.node.selectedOptions
+            .filter(o => o.name.toLowerCase() === 'size')
+            .map(o => o.value)
+        );
+        const hasMatchingSize = selectedSizes.some(s => productSizes.includes(s));
+        if (!hasMatchingSize) return false;
+      }
+
+      return true;
+    });
+  }, [allProducts, priceRange, selectedSizes]);
+
+  // Reset page when client-side filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [priceRange, selectedSizes]);
+
   const handleCategoryToggle = (categoryId: string) => {
-    setSelectedCategories(prev => 
-      prev.includes(categoryId) 
+    setSelectedCategories(prev =>
+      prev.includes(categoryId)
         ? prev.filter(id => id !== categoryId)
         : [...prev, categoryId]
     );
   };
 
   const handleBrandToggle = (brandId: string) => {
-    setSelectedBrands(prev => 
-      prev.includes(brandId) 
+    setSelectedBrands(prev =>
+      prev.includes(brandId)
         ? prev.filter(id => id !== brandId)
         : [...prev, brandId]
+    );
+  };
+
+  const handleSizeToggle = (size: string) => {
+    setSelectedSizes(prev =>
+      prev.includes(size)
+        ? prev.filter(s => s !== size)
+        : [...prev, size]
     );
   };
 
   const handleClearFilters = () => {
     setSelectedCategories([]);
     setSelectedBrands([]);
+    setSelectedSizes([]);
+    setPriceRange([PRICE_MIN, PRICE_MAX]);
   };
 
   // Pagination logic
-  const totalPages = Math.ceil(allProducts.length / PRODUCTS_PER_PAGE);
+  const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
   const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
-  const paginatedProducts = allProducts.slice(startIndex, startIndex + PRODUCTS_PER_PAGE);
+  const paginatedProducts = filteredProducts.slice(startIndex, startIndex + PRODUCTS_PER_PAGE);
 
   const goToPage = (page: number) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const hasActiveFilters = selectedCategories.length > 0 || selectedBrands.length > 0;
+  const hasActiveFilters = selectedCategories.length > 0 || selectedBrands.length > 0 || selectedSizes.length > 0 || priceRange[0] !== PRICE_MIN || priceRange[1] !== PRICE_MAX;
+  const activeFilterCount = selectedCategories.length + selectedBrands.length + selectedSizes.length + (priceRange[0] !== PRICE_MIN || priceRange[1] !== PRICE_MAX ? 1 : 0);
 
   const FilterContent = () => (
     <ShopFilters
       selectedCategories={selectedCategories}
       selectedBrands={selectedBrands}
+      selectedSizes={selectedSizes}
+      priceRange={priceRange}
       onCategoryToggle={handleCategoryToggle}
       onBrandToggle={handleBrandToggle}
+      onSizeToggle={handleSizeToggle}
+      onPriceRangeChange={setPriceRange}
       onClearFilters={handleClearFilters}
     />
   );
@@ -155,7 +199,7 @@ const Shop = () => {
                     <h3 className="text-lg md:text-xl lg:text-2xl font-bold uppercase mb-1">All Products</h3>
                     {!isLoading && !error && (
                       <p className="text-sm text-muted-foreground">
-                        Showing {paginatedProducts.length} of {allProducts.length} products
+                        Showing {paginatedProducts.length} of {filteredProducts.length} products
                         {hasActiveFilters && ' (filtered)'}
                       </p>
                     )}
@@ -169,7 +213,7 @@ const Shop = () => {
                         Filters
                         {hasActiveFilters && (
                           <span className="ml-2 bg-accent text-accent-foreground text-xs px-1.5 py-0.5 rounded-full">
-                            {selectedCategories.length + selectedBrands.length}
+                            {activeFilterCount}
                           </span>
                         )}
                       </Button>
@@ -178,7 +222,7 @@ const Shop = () => {
                       <SheetHeader>
                         <SheetTitle>Filters</SheetTitle>
                       </SheetHeader>
-                      <div className="mt-6">
+                      <div className="mt-6 overflow-y-auto max-h-[calc(100vh-120px)]">
                         <FilterContent />
                       </div>
                     </SheetContent>
@@ -218,6 +262,29 @@ const Shop = () => {
                         </Button>
                       ) : null;
                     })}
+                    {selectedSizes.map(size => (
+                      <Button
+                        key={`size-${size}`}
+                        variant="secondary"
+                        size="sm"
+                        onClick={() => handleSizeToggle(size)}
+                        className="h-7 text-xs"
+                      >
+                        Size {size}
+                        <X className="h-3 w-3 ml-1" />
+                      </Button>
+                    ))}
+                    {(priceRange[0] !== PRICE_MIN || priceRange[1] !== PRICE_MAX) && (
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        onClick={() => setPriceRange([PRICE_MIN, PRICE_MAX])}
+                        className="h-7 text-xs"
+                      >
+                        ${priceRange[0]} – ${priceRange[1]}{priceRange[1] === PRICE_MAX ? '+' : ''}
+                        <X className="h-3 w-3 ml-1" />
+                      </Button>
+                    )}
                     <Button
                       variant="ghost"
                       size="sm"
@@ -244,7 +311,7 @@ const Shop = () => {
                 )}
 
                 {/* Empty State */}
-                {!isLoading && !error && allProducts.length === 0 && (
+                {!isLoading && !error && filteredProducts.length === 0 && (
                   <div className="text-center py-20 space-y-4">
                     <PackageX className="h-16 w-16 mx-auto text-muted-foreground" />
                     <h3 className="text-xl font-bold">No products found</h3>
@@ -284,7 +351,6 @@ const Shop = () => {
 
                         <div className="flex items-center gap-1">
                           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
-                            // Show first, last, current, and adjacent pages
                             const showPage = 
                               page === 1 || 
                               page === totalPages || 
