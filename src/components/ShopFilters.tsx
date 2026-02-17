@@ -22,19 +22,19 @@ interface ShopFiltersProps {
 }
 
 export const categories: FilterOption[] = [
-  { id: 'dr-martens', label: 'Dr. Martens', query: '', keywords: ['dr. martens', 'dr martens', 'martens', 'docs'] },
-  { id: 'athletics', label: 'Athletics Shoes', query: '', keywords: ['athletic', 'athletics', 'running', 'track', 'marathon', 'jogging', 'racing'] },
-  { id: 'basketball', label: 'Basketball Shoes', query: '', keywords: ['basketball', 'hoops', 'court', 'jordan', 'dunk'] },
-  { id: 'golf', label: 'Golf Shoes', query: '', keywords: ['golf', 'fairway', 'greens'] },
-  { id: 'football', label: 'Football', query: '', keywords: ['football', 'soccer', 'cleats', 'boots'] },
-  { id: 'cycling', label: 'Cycling Shoes', query: '', keywords: ['cycling', 'bike', 'bicycle', 'clipless', 'pedal'] },
-  { id: 'insoles', label: 'Shoe Insoles', query: '', keywords: ['insole', 'insoles', 'insert', 'arch support', 'orthotic'] },
-  { id: 'gym', label: 'Gym/Training', query: '', keywords: ['gym', 'training', 'workout', 'cross-training', 'fitness', 'lifting'] },
-  { id: 'wrestling', label: 'Wrestling Shoes', query: '', keywords: ['wrestling', 'grappling', 'mat'] },
-  { id: 'casual', label: 'Casual Shoes', query: '', keywords: ['casual', 'everyday', 'walking', 'lifestyle', 'sneaker', 'sneakers'] },
-  { id: 'women', label: 'Women Shoes', query: '', keywords: ['women', 'woman', 'womens', "women's", 'ladies', 'her'] },
-  { id: 'men', label: 'Mens Shoes', query: '', keywords: ['men', 'mans', 'mens', "men's", 'his', 'male'] },
-  { id: 'safety', label: 'Safety Shoes', query: '', keywords: ['safety', 'steel toe', 'work boot', 'protective', 'industrial'] },
+  { id: 'dr-martens', label: 'Dr. Martens', query: '', keywords: ['dr. martens', 'dr martens', 'martens'] },
+  { id: 'athletics', label: 'Athletics Shoes', query: '', keywords: ['running', 'marathon', 'racing', 'athletic', 'trainers', 'running shoe'] },
+  { id: 'basketball', label: 'Basketball Shoes', query: '', keywords: ['basketball'] },
+  { id: 'golf', label: 'Golf Shoes', query: '', keywords: ['golf', 'golfer', 'golfing'] },
+  { id: 'football', label: 'Football', query: '', keywords: ['football', 'soccer', 'cleats', 'cleat'] },
+  { id: 'cycling', label: 'Cycling Shoes', query: '', keywords: ['cycling', 'bike', 'bicycle'] },
+  { id: 'insoles', label: 'Shoe Insoles', query: '', keywords: ['insole', 'insoles', 'inserts', 'arch support', 'orthopedic inserts', 'shoe sole', 'spikes', 'studs'] },
+  { id: 'gym', label: 'Gym/Training', query: '', keywords: ['gym', 'training', 'workout', 'fitness', 'weightlifting', 'squat', 'deadlift', 'aerobics', 'cheerleading'] },
+  { id: 'wrestling', label: 'Wrestling Shoes', query: '', keywords: ['wrestling'] },
+  { id: 'casual', label: 'Casual Shoes', query: '', keywords: ['casual', 'comfortable', 'sneakers', 'walking', 'lifestyle', 'fashion', 'trendy', 'minimalist', 'barefoot'] },
+  { id: 'women', label: 'Women Shoes', query: '', keywords: ["women's", 'women', 'woman', 'womens', 'ladies', 'female', 'her', 'mujer'] },
+  { id: 'men', label: 'Mens Shoes', query: '', keywords: ["men's", 'mens', "men's shoes", 'male'] },
+  { id: 'safety', label: 'Safety Shoes', query: '', keywords: ['safety', 'steel toe', 'work shoes', 'industrial', 'anti smash', 'protective'] },
 ];
 
 export const sizes: string[] = [
