@@ -14,6 +14,8 @@ import Community from "./pages/Community";
 import Contact from "./pages/Contact";
 import Product from "./pages/Product";
 import NotFound from "./pages/NotFound";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -38,6 +40,8 @@ const AppContent = () => {
         <Route path="/community" element={<Community />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/product/:handle" element={<Product />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
         
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
