@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ShopFilters, { categories, sizes, PRICE_MIN, PRICE_MAX } from '@/components/ShopFilters';
+import HorizontalCategoryFilter from '@/components/HorizontalCategoryFilter';
 import ShopifyProductCard from '@/components/ShopifyProductCard';
 import { fetchProducts, ShopifyProduct } from '@/lib/shopify';
 import { Loader2, PackageX, ChevronLeft, ChevronRight, SlidersHorizontal, X } from 'lucide-react';
@@ -117,19 +118,6 @@ const Shop = () => {
   };
 
   const hasActiveFilters = selectedCategories.length > 0 || selectedSizes.length > 0 || priceRange[0] !== PRICE_MIN || priceRange[1] !== PRICE_MAX;
-  const activeFilterCount = selectedCategories.length + selectedSizes.length + (priceRange[0] !== PRICE_MIN || priceRange[1] !== PRICE_MAX ? 1 : 0);
-
-  const FilterContent = () => (
-    <ShopFilters
-      selectedCategories={selectedCategories}
-      selectedSizes={selectedSizes}
-      priceRange={priceRange}
-      onCategoryToggle={handleCategoryToggle}
-      onSizeToggle={handleSizeToggle}
-      onPriceRangeChange={setPriceRange}
-      onClearFilters={handleClearFilters}
-    />
-  );
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -159,52 +147,57 @@ const Shop = () => {
         {/* Products Section */}
         <section className="py-10 md:py-16 lg:py-24">
           <div className="container px-4 md:px-6 lg:px-12">
-            <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-              
-              {/* Desktop Sidebar Filters */}
-              <aside className="hidden lg:block w-64 flex-shrink-0">
-                <div className="sticky top-24">
-                  <FilterContent />
-                </div>
-              </aside>
+            {/* Horizontal Category Filter */}
+            <div className="mb-6">
+              <HorizontalCategoryFilter
+                selectedCategories={selectedCategories}
+                onCategoryToggle={handleCategoryToggle}
+              />
+            </div>
 
-              {/* Main Content */}
-              <div className="flex-1">
-                {/* Mobile Filter Button & Header */}
-                <div className="flex items-center justify-between mb-6">
-                  <div>
-                    <h3 className="text-lg md:text-xl lg:text-2xl font-bold uppercase mb-1">All Products</h3>
-                    {!isLoading && !error && (
-                      <p className="text-sm text-muted-foreground">
-                        Showing {paginatedProducts.length} of {filteredProducts.length} products
-                        {hasActiveFilters && ' (filtered)'}
-                      </p>
+            {/* Header row with count + filter button */}
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h3 className="text-lg md:text-xl lg:text-2xl font-bold uppercase mb-1">All Products</h3>
+                {!isLoading && !error && (
+                  <p className="text-sm text-muted-foreground">
+                    Showing {paginatedProducts.length} of {filteredProducts.length} products
+                    {hasActiveFilters && ' (filtered)'}
+                  </p>
+                )}
+              </div>
+
+              {/* Mobile/Desktop Price & Size Filter Button */}
+              <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="outline" size="sm">
+                    <SlidersHorizontal className="h-4 w-4 mr-2" />
+                    Price & Size
+                    {(selectedSizes.length > 0 || priceRange[0] !== PRICE_MIN || priceRange[1] !== PRICE_MAX) && (
+                      <span className="ml-2 bg-accent text-accent-foreground text-xs px-1.5 py-0.5 rounded-full">
+                        {selectedSizes.length + (priceRange[0] !== PRICE_MIN || priceRange[1] !== PRICE_MAX ? 1 : 0)}
+                      </span>
                     )}
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-80">
+                  <SheetHeader>
+                    <SheetTitle>Price & Size</SheetTitle>
+                  </SheetHeader>
+                  <div className="mt-6 overflow-y-auto max-h-[calc(100vh-120px)]">
+                    <ShopFilters
+                      selectedCategories={[]}
+                      selectedSizes={selectedSizes}
+                      priceRange={priceRange}
+                      onCategoryToggle={() => {}}
+                      onSizeToggle={handleSizeToggle}
+                      onPriceRangeChange={setPriceRange}
+                      onClearFilters={() => { setSelectedSizes([]); setPriceRange([PRICE_MIN, PRICE_MAX]); }}
+                    />
                   </div>
-
-                  {/* Mobile Filter Button */}
-                  <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
-                    <SheetTrigger asChild>
-                      <Button variant="outline" size="sm" className="lg:hidden">
-                        <SlidersHorizontal className="h-4 w-4 mr-2" />
-                        Filters
-                        {hasActiveFilters && (
-                          <span className="ml-2 bg-accent text-accent-foreground text-xs px-1.5 py-0.5 rounded-full">
-                            {activeFilterCount}
-                          </span>
-                        )}
-                      </Button>
-                    </SheetTrigger>
-                    <SheetContent side="left" className="w-80">
-                      <SheetHeader>
-                        <SheetTitle>Filters</SheetTitle>
-                      </SheetHeader>
-                      <div className="mt-6 overflow-y-auto max-h-[calc(100vh-120px)]">
-                        <FilterContent />
-                      </div>
-                    </SheetContent>
-                  </Sheet>
-                </div>
+                </SheetContent>
+              </Sheet>
+            </div>
 
                 {/* Active Filter Tags */}
                 {hasActiveFilters && (
@@ -354,8 +347,6 @@ const Shop = () => {
                     )}
                   </>
                 )}
-              </div>
-            </div>
           </div>
         </section>
 
