@@ -22,13 +22,19 @@ interface ShopFiltersProps {
 }
 
 export const categories: FilterOption[] = [
-  { id: 'running', label: 'Running', query: '', keywords: ['running', 'marathon', 'racing', 'jogging', 'athletic'] },
-  { id: 'sneakers', label: 'Sneakers', query: '', keywords: ['sneaker', 'sneakers', 'trainer', 'trainers', 'sport shoe'] },
-  { id: 'boots', label: 'Boots', query: '', keywords: ['boot', 'boots', 'high-top'] },
-  { id: 'oxford', label: 'Oxford & Formal', query: '', keywords: ['oxford', 'brogue', 'formal', 'wingtip', 'spectator', 'dress'] },
-  { id: 'loafers', label: 'Loafers', query: '', keywords: ['loafer', 'loafers', 'slip-on', 'tassel'] },
-  { id: 'platform', label: 'Platform', query: '', keywords: ['platform', 'chunky', 'thick sole', 'dad shoe'] },
-  { id: 'casual', label: 'Casual', query: '', keywords: ['casual', 'walking', 'travel'] },
+  { id: 'dr-martens', label: 'Dr. Martens', query: '', keywords: ['dr. martens', 'dr martens', 'martens', 'docs'] },
+  { id: 'athletics', label: 'Athletics Shoes', query: '', keywords: ['athletic', 'athletics', 'running', 'track', 'marathon', 'jogging', 'racing'] },
+  { id: 'basketball', label: 'Basketball Shoes', query: '', keywords: ['basketball', 'hoops', 'court', 'jordan', 'dunk'] },
+  { id: 'golf', label: 'Golf Shoes', query: '', keywords: ['golf', 'fairway', 'greens'] },
+  { id: 'football', label: 'Football', query: '', keywords: ['football', 'soccer', 'cleats', 'boots'] },
+  { id: 'cycling', label: 'Cycling Shoes', query: '', keywords: ['cycling', 'bike', 'bicycle', 'clipless', 'pedal'] },
+  { id: 'insoles', label: 'Shoe Insoles', query: '', keywords: ['insole', 'insoles', 'insert', 'arch support', 'orthotic'] },
+  { id: 'gym', label: 'Gym/Training', query: '', keywords: ['gym', 'training', 'workout', 'cross-training', 'fitness', 'lifting'] },
+  { id: 'wrestling', label: 'Wrestling Shoes', query: '', keywords: ['wrestling', 'grappling', 'mat'] },
+  { id: 'casual', label: 'Casual Shoes', query: '', keywords: ['casual', 'everyday', 'walking', 'lifestyle', 'sneaker', 'sneakers'] },
+  { id: 'women', label: 'Women Shoes', query: '', keywords: ['women', 'woman', 'womens', "women's", 'ladies', 'her'] },
+  { id: 'men', label: 'Mens Shoes', query: '', keywords: ['men', 'mans', 'mens', "men's", 'his', 'male'] },
+  { id: 'safety', label: 'Safety Shoes', query: '', keywords: ['safety', 'steel toe', 'work boot', 'protective', 'industrial'] },
 ];
 
 export const sizes: string[] = [
