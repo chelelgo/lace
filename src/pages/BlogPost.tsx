@@ -3,13 +3,15 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ArrowLeft, Calendar, Clock, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import blogShoeCare from '@/assets/blog-shoe-care.jpg';
 
-const posts: Record<string, { title: string; date: string; readTime: string; author: string; content: React.ReactNode }> = {
+const posts: Record<string, { title: string; date: string; readTime: string; author: string; image: string; content: React.ReactNode }> = {
   'ultimate-shoe-care-guide': {
     title: 'The Ultimate Shoe Care Guide: How to Make Your Footwear Last a Lifetime',
     date: 'February 17, 2026',
     readTime: '8 min read',
     author: 'Lace Team',
+    image: blogShoeCare,
     content: (
       <>
         <p className="text-lg leading-relaxed mb-6">
@@ -113,6 +115,11 @@ const BlogPost = () => {
             <div className="h-1 w-20 bg-accent mt-6" />
           </div>
         </section>
+
+        {/* Hero Image */}
+        <div className="w-full max-w-4xl mx-auto px-4 md:px-12 -mt-8 mb-8">
+          <img src={post.image} alt={post.title} className="w-full aspect-[16/9] object-cover border-2 border-border" />
+        </div>
 
         {/* Post Content */}
         <article className="py-12 md:py-16">

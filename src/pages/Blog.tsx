@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ArrowRight, Calendar, Clock, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import blogShoeCare from '@/assets/blog-shoe-care.jpg';
 
 const blogPosts = [
   {
@@ -39,8 +40,8 @@ const Blog = () => {
                   to={`/blog/${post.id}`}
                   className="group border-2 border-border bg-card hover:border-accent transition-all duration-300"
                 >
-                  <div className="aspect-[16/9] bg-muted flex items-center justify-center overflow-hidden">
-                    <span className="text-6xl">👟</span>
+                  <div className="aspect-[16/9] bg-muted overflow-hidden">
+                    <img src={blogShoeCare} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
                   <div className="p-6">
                     <div className="flex items-center gap-4 text-xs text-muted-foreground mb-3">
