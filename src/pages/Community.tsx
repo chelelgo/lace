@@ -6,9 +6,9 @@ import { Instagram, Heart, MessageCircle } from 'lucide-react';
 
 const instagramCommunities = [
   { 
-    name: 'Lace Africa', 
-    handle: '@lace.africa', 
-    url: 'https://www.instagram.com/lace.africa/',
+    name: 'Lace Store', 
+    handle: '@lacetore', 
+    url: 'https://www.instagram.com/lacetore/',
     region: '🌍 Africa'
   },
   { 
@@ -116,7 +116,7 @@ const Community = () => {
               {instagramPosts.map((post) => (
                 <a 
                   key={post.id} 
-                  href="https://www.instagram.com/lace.africa/"
+                  href="https://www.instagram.com/lacetore/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative aspect-square overflow-hidden bg-background border border-border hover:border-accent transition-colors"
@@ -145,7 +145,7 @@ const Community = () => {
                 className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold uppercase tracking-wider px-12"
                 asChild
               >
-                <a href="https://www.instagram.com/lace.africa/" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.instagram.com/lacetore/" target="_blank" rel="noopener noreferrer">
                   <Instagram className="mr-2 h-5 w-5" />
                   View More on Instagram
                 </a>
