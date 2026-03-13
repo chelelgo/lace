@@ -6,7 +6,7 @@ import { Instagram, Heart, MessageCircle } from 'lucide-react';
 
 const instagramCommunities = [
   { 
-    name: 'Lace Store', 
+    name: 'Lacetore', 
     handle: '@lacetore', 
     url: 'https://www.instagram.com/lacetore/',
     region: '🌍 Africa'
