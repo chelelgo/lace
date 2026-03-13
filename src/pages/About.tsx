@@ -21,7 +21,7 @@ const About = () => {
           <div className="container relative z-10 px-6 md:px-12">
             <div className="max-w-4xl animate-fade-up">
               <h1 className="mb-8 text-white">
-                Laces Hold The Sneaker.<br />Lacetore Holds The Community.
+                Laces Hold The Sneaker.<br />Lace Holds The Community.
               </h1>
               <p className="text-xl md:text-2xl max-w-3xl font-light text-white/90 leading-relaxed">
                 More than just a brand — we're the thread that connects culture, fashion, and self-expression.
