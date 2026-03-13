@@ -26,7 +26,7 @@ const events = [
   },
   {
     id: 3,
-    title: "Lacetore x Xceed Collaboration Launch",
+    title: "Lace x Xceed Collaboration Launch",
     date: "May 8, 2026",
     time: "7:00 PM - 11:00 PM EAT",
     attendees: 200,
