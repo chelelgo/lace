@@ -4,7 +4,7 @@ import { LayoutDashboard, ShoppingCart, Package, Users, ChevronLeft, LogOut } fr
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
-import laceLogo from '@/assets/lace-logo.png';
+import lacetoreLogo from '@/assets/lacetore-logo.png';
 
 const navItems = [
   { title: 'Dashboard', url: '/admin', icon: LayoutDashboard },
