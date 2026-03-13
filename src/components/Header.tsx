@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import laceLogo from '@/assets/lace-logo.png';
+import lacetoreLogo from '@/assets/lacetore-logo.png';
 import { ShopifyCartDrawer } from '@/components/ShopifyCartDrawer';
 import MobileNav from '@/components/MobileNav';
 
