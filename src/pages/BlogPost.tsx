@@ -10,7 +10,7 @@ const posts: Record<string, { title: string; date: string; readTime: string; aut
     title: 'The Ultimate Shoe Care Guide: How to Make Your Footwear Last a Lifetime',
     date: 'February 17, 2026',
     readTime: '8 min read',
-    author: 'Lace Team',
+    author: 'Lacetore Team',
     image: blogShoeCare,
     content: (
       <>

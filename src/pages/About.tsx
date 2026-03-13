@@ -54,7 +54,7 @@ const About = () => {
               <div className="relative h-[500px] bg-muted animate-fade-in">
                 <img 
                   src="https://images.unsplash.com/photo-1556906781-9cba4a8e7e37?w=800&h=800&fit=crop" 
-                  alt="Lace Community"
+                  alt="Lacetore Community"
                    className="w-full h-full object-cover"
                 />
               </div>
