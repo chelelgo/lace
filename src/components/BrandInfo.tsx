@@ -9,7 +9,7 @@ const BrandInfo = () => {
       <div className="container px-4 md:px-6 lg:px-12">
         {/* Section Title */}
         <div className="text-center mb-10 md:mb-16">
-          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4">The Lace Culture</h2>
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4">The Lacetore Culture</h2>
           <div className="w-16 md:w-24 h-1 bg-accent mx-auto" />
         </div>
         
