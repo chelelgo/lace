@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import laceLogo from '@/assets/lace-logo.png';
+import lacetoreLogo from '@/assets/lacetore-logo.png';
 import { ShopifyCartDrawer } from '@/components/ShopifyCartDrawer';
 import MobileNav from '@/components/MobileNav';
 
@@ -26,7 +26,7 @@ const Header = () => {
 
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2 group">
-          <img src={laceLogo} alt="Lace" className="h-12 md:h-20 w-auto transition-transform group-hover:scale-105" />
+          <img src={lacetoreLogo} alt="Lacetore" className="h-12 md:h-20 w-auto transition-transform group-hover:scale-105" />
         </Link>
         
         {/* Desktop Nav */}

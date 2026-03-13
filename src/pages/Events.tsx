@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 const events = [
   {
     id: 1,
-    title: "Lace Brand Launch 2026",
+    title: "Lacetore Brand Launch 2026",
     date: "March 7, 2025",
     time: "2:00 PM - 8:00 PM EAT",
     attendees: 500,
@@ -26,7 +26,7 @@ const events = [
   },
   {
     id: 3,
-    title: "Lace x Xceed Collaboration Launch",
+    title: "Lacetore x Xceed Collaboration Launch",
     date: "May 8, 2026",
     time: "7:00 PM - 11:00 PM EAT",
     attendees: 200,
@@ -70,7 +70,7 @@ const Events = () => {
                 Step Into<br />The Culture
               </h1>
               <p className="text-xl md:text-2xl max-w-3xl font-light text-white/90 leading-relaxed">
-                Lace virtual events connect people through fashion, music, and art. Experience the drops, meet the community, and celebrate what ties us together — all from anywhere in the world.
+                Lacetore virtual events connect people through fashion, music, and art. Experience the drops, meet the community, and celebrate what ties us together — all from anywhere in the world.
               </p>
             </div>
           </div>

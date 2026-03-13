@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import laceLogo from '@/assets/lace-logo.png';
+import lacetoreLogo from '@/assets/lacetore-logo.png';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -30,7 +30,7 @@ const MobileNav = () => {
       <SheetContent side="left" className="w-[280px] p-0">
         <SheetHeader className="p-6 border-b border-border">
           <SheetTitle className="flex items-center">
-            <img src={laceLogo} alt="Lace" className="h-12 w-auto" />
+            <img src={lacetoreLogo} alt="Lacetore" className="h-12 w-auto" />
           </SheetTitle>
         </SheetHeader>
         <nav className="flex flex-col p-4">

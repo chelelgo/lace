@@ -21,7 +21,7 @@ const About = () => {
           <div className="container relative z-10 px-6 md:px-12">
             <div className="max-w-4xl animate-fade-up">
               <h1 className="mb-8 text-white">
-                Laces Hold The Sneaker.<br />Lace Holds The Community.
+                Laces Hold The Sneaker.<br />Lacetore Holds The Community.
               </h1>
               <p className="text-xl md:text-2xl max-w-3xl font-light text-white/90 leading-relaxed">
                 More than just a brand — we're the thread that connects culture, fashion, and self-expression.
@@ -44,7 +44,7 @@ const About = () => {
                     But as we grew, we realized something powerful: <span className="italic">every sneaker needs its laces.</span> And every culture needs connection. So we evolved.
                   </p>
                   <p>
-                    Today, <span className="font-bold">Lace</span> is the thread that ties it all together — sneakers, streetwear, community, and creativity. From our roots in Kenya to a global movement, we're building the world's most loved sneaker and lifestyle brand.
+                    Today, <span className="font-bold">Lacetore</span> is the thread that ties it all together — sneakers, streetwear, community, and creativity. From our roots in Kenya to a global movement, we're building the world's most loved sneaker and lifestyle brand.
                   </p>
                   <p className="text-accent italic font-medium pt-4">
                     "What ties you?"
@@ -54,10 +54,11 @@ const About = () => {
               <div className="relative h-[500px] bg-muted animate-fade-in">
                 <img 
                   src="https://images.unsplash.com/photo-1556906781-9cba4a8e7e37?w=800&h=800&fit=crop" 
-                  alt="Lace Community"
-                  className="w-full h-full object-cover"
+                  alt="Lacetore Community"
+                   className="w-full h-full object-cover"
                 />
               </div>
+
             </div>
           </div>
         </section>

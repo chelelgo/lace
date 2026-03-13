@@ -9,7 +9,7 @@ const BrandInfo = () => {
       <div className="container px-4 md:px-6 lg:px-12">
         {/* Section Title */}
         <div className="text-center mb-10 md:mb-16">
-          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4">The Lace Culture</h2>
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4">The Lacetore Culture</h2>
           <div className="w-16 md:w-24 h-1 bg-accent mx-auto" />
         </div>
         
@@ -21,7 +21,7 @@ const BrandInfo = () => {
               Every sneaker has a story. But no sneaker is complete without its laces.
             </p>
             <p className="text-base md:text-lg lg:text-xl font-light leading-relaxed text-muted-foreground">
-              <strong className="text-foreground font-bold">LACE</strong> is what holds culture together — sneakers, style, and community. 
+              <strong className="text-foreground font-bold">LACETORE</strong> is what holds culture together — sneakers, style, and community. 
               We're not just selling shoes; we're building connections, celebrating creativity, 
               and honoring the threads that tie us all.
             </p>

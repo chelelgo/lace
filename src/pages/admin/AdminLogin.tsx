@@ -11,7 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { lovable } from '@/integrations/lovable';
-import laceLogo from '@/assets/lace-logo.png';
+import lacetoreLogo from '@/assets/lacetore-logo.png';
 
 const authSchema = z.object({
   email: z.string().trim().email({ message: "Invalid email address" }).max(255),
@@ -136,7 +136,7 @@ const AdminLogin = () => {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
-            <img src={laceLogo} alt="Lace" className="h-16 w-auto" />
+            <img src={lacetoreLogo} alt="Lacetore" className="h-16 w-auto" />
           </div>
           <CardTitle className="text-2xl">Admin Portal</CardTitle>
           <CardDescription>

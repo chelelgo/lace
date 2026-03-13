@@ -4,7 +4,7 @@ import { LayoutDashboard, ShoppingCart, Package, Users, ChevronLeft, LogOut } fr
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
-import laceLogo from '@/assets/lace-logo.png';
+import lacetoreLogo from '@/assets/lacetore-logo.png';
 
 const navItems = [
   { title: 'Dashboard', url: '/admin', icon: LayoutDashboard },
@@ -40,7 +40,7 @@ const AdminSidebar = () => {
     <aside className="w-64 border-r border-border bg-sidebar min-h-screen flex flex-col">
       <div className="p-4 border-b border-border">
         <a href="/" className="flex items-center gap-2">
-          <img src={laceLogo} alt="Lace" className="h-12 w-auto" />
+          <img src={lacetoreLogo} alt="Lacetore" className="h-12 w-auto" />
         </a>
       </div>
 
