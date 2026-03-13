@@ -9,7 +9,7 @@ const CommunitySection = () => {
         <div className="text-center mb-10 md:mb-16 space-y-3 md:space-y-4">
           <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white">Laced Together</h2>
           <p className="text-base md:text-xl lg:text-2xl font-light text-white/80 max-w-3xl mx-auto px-2">
-            Join over 1,000 sneaker lovers, stylists, and culture creators connected through LACETORE.
+            Join over 1,000 sneaker lovers, stylists, and culture creators connected through LACE.
           </p>
         </div>
 
