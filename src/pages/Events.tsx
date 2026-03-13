@@ -70,7 +70,7 @@ const Events = () => {
                 Step Into<br />The Culture
               </h1>
               <p className="text-xl md:text-2xl max-w-3xl font-light text-white/90 leading-relaxed">
-                Lace virtual events connect people through fashion, music, and art. Experience the drops, meet the community, and celebrate what ties us together — all from anywhere in the world.
+                Lacetore virtual events connect people through fashion, music, and art. Experience the drops, meet the community, and celebrate what ties us together — all from anywhere in the world.
               </p>
             </div>
           </div>

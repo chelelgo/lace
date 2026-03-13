@@ -55,9 +55,10 @@ const About = () => {
                 <img 
                   src="https://images.unsplash.com/photo-1556906781-9cba4a8e7e37?w=800&h=800&fit=crop" 
                   alt="Lace Community"
-                  className="w-full h-full object-cover"
+                   className="w-full h-full object-cover"
                 />
               </div>
+
             </div>
           </div>
         </section>

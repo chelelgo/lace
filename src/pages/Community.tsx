@@ -12,7 +12,7 @@ const instagramCommunities = [
     region: '🌍 Africa'
   },
   { 
-    name: 'Lace Australia', 
+    name: 'Lacetore Australia', 
     handle: '@lace.australia', 
     url: 'https://www.instagram.com/lace.australia/',
     region: '🦘 Australia'

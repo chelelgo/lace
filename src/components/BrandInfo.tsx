@@ -21,7 +21,7 @@ const BrandInfo = () => {
               Every sneaker has a story. But no sneaker is complete without its laces.
             </p>
             <p className="text-base md:text-lg lg:text-xl font-light leading-relaxed text-muted-foreground">
-              <strong className="text-foreground font-bold">LACE</strong> is what holds culture together — sneakers, style, and community. 
+              <strong className="text-foreground font-bold">LACETORE</strong> is what holds culture together — sneakers, style, and community. 
               We're not just selling shoes; we're building connections, celebrating creativity, 
               and honoring the threads that tie us all.
             </p>

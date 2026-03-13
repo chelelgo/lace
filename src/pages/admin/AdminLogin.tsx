@@ -136,7 +136,7 @@ const AdminLogin = () => {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
-            <img src={laceLogo} alt="Lace" className="h-16 w-auto" />
+            <img src={lacetoreLogo} alt="Lacetore" className="h-16 w-auto" />
           </div>
           <CardTitle className="text-2xl">Admin Portal</CardTitle>
           <CardDescription>

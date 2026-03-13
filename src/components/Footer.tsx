@@ -71,7 +71,7 @@ const Footer = () => {
 
         {/* Bottom Section */}
         <div className="border-t border-white/10 pt-6 md:pt-8 mt-8 md:mt-12 flex flex-col md:flex-row justify-between items-center gap-4 text-xs md:text-sm text-white/60">
-          <p>&copy; 2025 Lace. All rights reserved.</p>
+          <p>&copy; 2025 Lacetore. All rights reserved.</p>
           <div className="flex flex-wrap justify-center gap-4 md:gap-6">
             <a href="#" className="hover:text-accent transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-accent transition-colors">Terms of Service</a>
