@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 const events = [
   {
     id: 1,
-    title: "Lace Brand Launch 2026",
+    title: "Lacetore Brand Launch 2026",
     date: "March 7, 2025",
     time: "2:00 PM - 8:00 PM EAT",
     attendees: 500,
