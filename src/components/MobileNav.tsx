@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import laceLogo from '@/assets/lace-logo.png';
+import lacetoreLogo from '@/assets/lacetore-logo.png';
 
 const navLinks = [
   { href: '/', label: 'Home' },
