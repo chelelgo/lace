@@ -12,7 +12,7 @@ const blogPosts = [
     excerpt: "Proper shoe care isn't just about aesthetics; it's about preserving the structural integrity of the materials.",
     date: 'February 17, 2026',
     readTime: '8 min read',
-    author: 'Lacetore Team',
+    author: 'Lace Team',
   },
 ];
 
