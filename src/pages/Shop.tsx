@@ -22,6 +22,7 @@ const Shop = () => {
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const { getCategoriesForProduct, isLoading: mappingsLoading } = useProductCategories();
 
   // Load all products once (no query filtering — all filtering is client-side)
   useEffect(() => {
