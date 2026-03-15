@@ -1,6 +1,6 @@
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, ShoppingCart, Package, Users, ChevronLeft, LogOut } from 'lucide-react';
+import { LayoutDashboard, ShoppingCart, Package, Users, ChevronLeft, LogOut, Tags } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
