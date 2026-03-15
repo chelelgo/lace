@@ -6,6 +6,7 @@ import ShopFilters, { categories, sizes, PRICE_MIN, PRICE_MAX } from '@/componen
 import HorizontalCategoryFilter from '@/components/HorizontalCategoryFilter';
 import ShopifyProductCard from '@/components/ShopifyProductCard';
 import { fetchProducts, ShopifyProduct } from '@/lib/shopify';
+import { useProductCategories } from '@/hooks/useProductCategories';
 import { Loader2, PackageX, ChevronLeft, ChevronRight, SlidersHorizontal, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
