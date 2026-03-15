@@ -44,22 +44,32 @@ const Shop = () => {
     loadProducts();
   }, []);
 
-  // Client-side filtering for category, price, and size
+  // Client-side filtering using DB category mappings (with keyword fallback)
   const filteredProducts = useMemo(() => {
     return allProducts.filter(product => {
       const price = parseFloat(product.node.priceRange.minVariantPrice.amount);
-      const title = product.node.title.toLowerCase();
-      const description = product.node.description.toLowerCase();
+      const handle = product.node.handle;
 
-      // Category filter — match keywords against title and description
+      // Category filter — use DB mappings first, fall back to keyword matching
       if (selectedCategories.length > 0) {
-        const matchesCategory = selectedCategories.some(catId => {
-          const category = categories.find(c => c.id === catId);
-          if (!category) return false;
-          return category.keywords.some(keyword =>
-            title.includes(keyword.toLowerCase()) || description.includes(keyword.toLowerCase())
-          );
-        });
+        const dbCategories = getCategoriesForProduct(handle);
+        let matchesCategory = false;
+
+        if (dbCategories.length > 0) {
+          // Product has admin-assigned categories — use those
+          matchesCategory = selectedCategories.some(catId => dbCategories.includes(catId));
+        } else {
+          // Fallback: keyword matching for uncategorized products
+          const title = product.node.title.toLowerCase();
+          const description = product.node.description.toLowerCase();
+          matchesCategory = selectedCategories.some(catId => {
+            const category = categories.find(c => c.id === catId);
+            if (!category) return false;
+            return category.keywords.some(keyword =>
+              title.includes(keyword.toLowerCase()) || description.includes(keyword.toLowerCase())
+            );
+          });
+        }
         if (!matchesCategory) return false;
       }
 
@@ -67,7 +77,7 @@ const Shop = () => {
       if (price < priceRange[0]) return false;
       if (priceRange[1] < PRICE_MAX && price > priceRange[1]) return false;
 
-      // Size filter — check if any variant has a matching size option
+      // Size filter
       if (selectedSizes.length > 0) {
         const productSizes = product.node.variants.edges.flatMap(v =>
           v.node.selectedOptions
@@ -80,7 +90,7 @@ const Shop = () => {
 
       return true;
     });
-  }, [allProducts, selectedCategories, priceRange, selectedSizes]);
+  }, [allProducts, selectedCategories, priceRange, selectedSizes, getCategoriesForProduct]);
 
   // Reset page when filters change
   useEffect(() => {
