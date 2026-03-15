@@ -6,6 +6,7 @@ import ShopFilters, { categories, sizes, PRICE_MIN, PRICE_MAX } from '@/componen
 import HorizontalCategoryFilter from '@/components/HorizontalCategoryFilter';
 import ShopifyProductCard from '@/components/ShopifyProductCard';
 import { fetchProducts, ShopifyProduct } from '@/lib/shopify';
+import { useProductCategories } from '@/hooks/useProductCategories';
 import { Loader2, PackageX, ChevronLeft, ChevronRight, SlidersHorizontal, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
@@ -21,6 +22,7 @@ const Shop = () => {
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const { getCategoriesForProduct, isLoading: mappingsLoading } = useProductCategories();
 
   // Load all products once (no query filtering — all filtering is client-side)
   useEffect(() => {
@@ -42,22 +44,32 @@ const Shop = () => {
     loadProducts();
   }, []);
 
-  // Client-side filtering for category, price, and size
+  // Client-side filtering using DB category mappings (with keyword fallback)
   const filteredProducts = useMemo(() => {
     return allProducts.filter(product => {
       const price = parseFloat(product.node.priceRange.minVariantPrice.amount);
-      const title = product.node.title.toLowerCase();
-      const description = product.node.description.toLowerCase();
+      const handle = product.node.handle;
 
-      // Category filter — match keywords against title and description
+      // Category filter — use DB mappings first, fall back to keyword matching
       if (selectedCategories.length > 0) {
-        const matchesCategory = selectedCategories.some(catId => {
-          const category = categories.find(c => c.id === catId);
-          if (!category) return false;
-          return category.keywords.some(keyword =>
-            title.includes(keyword.toLowerCase()) || description.includes(keyword.toLowerCase())
-          );
-        });
+        const dbCategories = getCategoriesForProduct(handle);
+        let matchesCategory = false;
+
+        if (dbCategories.length > 0) {
+          // Product has admin-assigned categories — use those
+          matchesCategory = selectedCategories.some(catId => dbCategories.includes(catId));
+        } else {
+          // Fallback: keyword matching for uncategorized products
+          const title = product.node.title.toLowerCase();
+          const description = product.node.description.toLowerCase();
+          matchesCategory = selectedCategories.some(catId => {
+            const category = categories.find(c => c.id === catId);
+            if (!category) return false;
+            return category.keywords.some(keyword =>
+              title.includes(keyword.toLowerCase()) || description.includes(keyword.toLowerCase())
+            );
+          });
+        }
         if (!matchesCategory) return false;
       }
 
@@ -65,7 +77,7 @@ const Shop = () => {
       if (price < priceRange[0]) return false;
       if (priceRange[1] < PRICE_MAX && price > priceRange[1]) return false;
 
-      // Size filter — check if any variant has a matching size option
+      // Size filter
       if (selectedSizes.length > 0) {
         const productSizes = product.node.variants.edges.flatMap(v =>
           v.node.selectedOptions
@@ -78,7 +90,7 @@ const Shop = () => {
 
       return true;
     });
-  }, [allProducts, selectedCategories, priceRange, selectedSizes]);
+  }, [allProducts, selectedCategories, priceRange, selectedSizes, getCategoriesForProduct]);
 
   // Reset page when filters change
   useEffect(() => {
@@ -252,7 +264,7 @@ const Shop = () => {
                 )}
                 
                 {/* Loading State */}
-                {isLoading && (
+                {(isLoading || mappingsLoading) && (
                   <div className="flex items-center justify-center py-20">
                     <Loader2 className="h-8 w-8 animate-spin text-accent" />
                   </div>

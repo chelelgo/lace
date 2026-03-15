@@ -1,6 +1,6 @@
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, ShoppingCart, Package, Users, ChevronLeft, LogOut } from 'lucide-react';
+import { LayoutDashboard, ShoppingCart, Package, Users, ChevronLeft, LogOut, Tags } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
@@ -10,6 +10,7 @@ const navItems = [
   { title: 'Dashboard', url: '/admin', icon: LayoutDashboard },
   { title: 'Orders', url: '/admin/orders', icon: ShoppingCart },
   { title: 'Products', url: '/admin/products', icon: Package },
+  { title: 'Categories', url: '/admin/categories', icon: Tags },
   { title: 'Customers', url: '/admin/customers', icon: Users },
 ];
 
