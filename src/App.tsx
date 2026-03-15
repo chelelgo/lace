@@ -50,6 +50,7 @@ const AppContent = () => {
           <Route index element={<AdminDashboard />} />
           <Route path="orders" element={<AdminOrders />} />
           <Route path="products" element={<AdminProducts />} />
+          <Route path="categories" element={<AdminProductCategories />} />
           <Route path="customers" element={<AdminCustomers />} />
         </Route>
         
