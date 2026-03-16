@@ -11,7 +11,7 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-12">
           {/* Brand Section - Full width on mobile */}
           <div className="col-span-2 md:col-span-1">
-            <img src={lacetoreLogo} alt="Lacetore" className="h-10 md:h-12 w-auto mb-4 md:mb-6 brightness-0 invert" />
+            <img src={lacetoreLogo} alt="Lacetore" className="h-14 md:h-20 w-auto mb-4 md:mb-6 brightness-0 invert" />
             <p className="text-sm text-white/70 mb-4 md:mb-6 leading-relaxed">
               The thread that ties culture together. Premium sneakers and streetwear for those who move with purpose.
             </p>
