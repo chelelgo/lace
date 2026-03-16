@@ -41,7 +41,7 @@ const AdminSidebar = () => {
     <aside className="w-64 border-r border-border bg-sidebar min-h-screen flex flex-col">
       <div className="p-4 border-b border-border">
         <a href="/" className="flex items-center gap-2">
-          <img src={lacetoreLogo} alt="Lacetore" className="h-12 w-auto" />
+          <img src={lacetoreLogo} alt="Lacetore" className="h-16 w-auto" />
         </a>
       </div>
 
