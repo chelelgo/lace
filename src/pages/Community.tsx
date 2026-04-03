@@ -9,7 +9,7 @@ const instagramCommunities = [
     name: 'Lacetore', 
     handle: '@lacetore', 
     url: 'https://www.instagram.com/lacetore/',
-    region: '🌍 Africa'
+    region: '🌍 Global'
   },
   { 
     name: 'Lacetore Australia', 
