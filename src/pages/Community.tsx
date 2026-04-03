@@ -116,7 +116,7 @@ const Community = () => {
               {instagramPosts.map((post) => (
                 <a 
                   key={post.id} 
-                  href="https://www.instagram.com/lacetore/"
+                  href={post.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative aspect-square overflow-hidden bg-background border border-border hover:border-accent transition-colors"
