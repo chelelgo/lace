@@ -8,7 +8,6 @@ const InstagramEmbed = ({ postUrl }: InstagramEmbedProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Load Instagram embed script if not already loaded
     if (!(window as any).instgrm) {
       const script = document.createElement('script');
       script.src = '//www.instagram.com/embed.js';
@@ -23,7 +22,10 @@ const InstagramEmbed = ({ postUrl }: InstagramEmbedProps) => {
   }, [postUrl]);
 
   return (
-    <div ref={containerRef} className="instagram-embed-container">
+    <div
+      ref={containerRef}
+      className="instagram-embed-container aspect-square overflow-hidden"
+    >
       <blockquote
         className="instagram-media"
         data-instgrm-captioned={false}
