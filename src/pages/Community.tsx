@@ -89,7 +89,7 @@ const Community = () => {
                 <div className="text-xs md:text-sm font-medium text-muted-foreground uppercase tracking-wide">Followers</div>
               </div>
               <div className="p-6 md:p-8 bg-muted border border-border text-center">
-                <div className="text-3xl md:text-5xl font-bold mb-2 text-accent">500+</div>
+                <div className="text-3xl md:text-5xl font-bold mb-2 text-accent">100+</div>
                 <div className="text-xs md:text-sm font-medium text-muted-foreground uppercase tracking-wide">Posts Shared</div>
               </div>
               <div className="p-6 md:p-8 bg-muted border border-border text-center">
