@@ -30,7 +30,6 @@ const instagramPosts = [
   { id: 5, url: 'https://www.instagram.com/p/CwGOiuIArp5/' },
   { id: 6, url: 'https://www.instagram.com/p/CsWmjtjg9LW/' },
 ];
-];
 
 const Community = () => {
   return (
