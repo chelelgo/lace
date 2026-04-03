@@ -20,14 +20,14 @@ const instagramCommunities = [
 ];
 
 const instagramPosts = [
-  { id: 1, image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop', likes: 234, comments: 18 },
-  { id: 2, image: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=400&h=400&fit=crop', likes: 189, comments: 12 },
-  { id: 3, image: 'https://images.unsplash.com/photo-1556906781-9cba4a8e7e37?w=400&h=400&fit=crop', likes: 312, comments: 24 },
-  { id: 4, image: 'https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?w=400&h=400&fit=crop', likes: 278, comments: 21 },
-  { id: 5, image: 'https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=400&h=400&fit=crop', likes: 156, comments: 9 },
-  { id: 6, image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&h=400&fit=crop', likes: 203, comments: 15 },
-  { id: 7, image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop', likes: 267, comments: 19 },
-  { id: 8, image: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=400&fit=crop', likes: 198, comments: 14 },
+  { id: 1, url: 'https://www.instagram.com/p/CYx6PCRF_OU/', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop', likes: 234, comments: 18 },
+  { id: 2, url: 'https://www.instagram.com/p/CZotb3Mq7Rj/', image: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=400&h=400&fit=crop', likes: 189, comments: 12 },
+  { id: 3, url: 'https://www.instagram.com/p/CcbDBcRKdsh/', image: 'https://images.unsplash.com/photo-1556906781-9cba4a8e7e37?w=400&h=400&fit=crop', likes: 312, comments: 24 },
+  { id: 4, url: 'https://www.instagram.com/p/Cf_FU6-K696/', image: 'https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?w=400&h=400&fit=crop', likes: 278, comments: 21 },
+  { id: 5, url: 'https://www.instagram.com/p/CqK2AEpo0UA/', image: 'https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=400&h=400&fit=crop', likes: 156, comments: 9 },
+  { id: 6, url: 'https://www.instagram.com/p/CsWmjtjg9LW/', image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&h=400&fit=crop', likes: 203, comments: 15 },
+  { id: 7, url: 'https://www.instagram.com/reel/CyaccVyMWsd/', image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop', likes: 267, comments: 19 },
+  { id: 8, url: 'https://www.instagram.com/reel/C2c0ZLkooQy/', image: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=400&fit=crop', likes: 198, comments: 14 },
 ];
 
 const Community = () => {
@@ -116,7 +116,7 @@ const Community = () => {
               {instagramPosts.map((post) => (
                 <a 
                   key={post.id} 
-                  href="https://www.instagram.com/lacetore/"
+                  href={post.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative aspect-square overflow-hidden bg-background border border-border hover:border-accent transition-colors"
