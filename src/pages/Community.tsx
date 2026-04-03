@@ -21,14 +21,14 @@ const instagramCommunities = [
 ];
 
 const instagramPosts = [
+  { id: 7, url: 'https://www.instagram.com/reel/CyaccVyMWsd/' },
+  { id: 8, url: 'https://www.instagram.com/reel/C2c0ZLkooQy/' },
   { id: 1, url: 'https://www.instagram.com/p/CYx6PCRF_OU/' },
   { id: 2, url: 'https://www.instagram.com/p/CZotb3Mq7Rj/' },
   { id: 3, url: 'https://www.instagram.com/p/CcbDBcRKdsh/' },
   { id: 4, url: 'https://www.instagram.com/p/Cf_FU6-K696/' },
-  { id: 5, url: 'https://www.instagram.com/p/CqK2AEpo0UA/' },
+  { id: 5, url: 'https://www.instagram.com/p/CwGOiuIArp5/' },
   { id: 6, url: 'https://www.instagram.com/p/CsWmjtjg9LW/' },
-  { id: 7, url: 'https://www.instagram.com/reel/CyaccVyMWsd/' },
-  { id: 8, url: 'https://www.instagram.com/reel/C2c0ZLkooQy/' },
 ];
 
 const Community = () => {
