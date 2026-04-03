@@ -93,8 +93,8 @@ const Contact = () => {
                       </div>
                       <div>
                         <h4 className="font-bold uppercase text-sm mb-1">Email</h4>
-                        <p className="text-muted-foreground">hello@lace.community</p>
-                        <p className="text-muted-foreground">partnerships@lace.community</p>
+                        <p className="text-muted-foreground">hello@lacetore.com</p>
+                        <p className="text-muted-foreground">partnerships@lacetore.com</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
@@ -103,7 +103,8 @@ const Contact = () => {
                       </div>
                       <div>
                         <h4 className="font-bold uppercase text-sm mb-1">Phone</h4>
-                        <p className="text-muted-foreground">+254 700 123 456</p>
+                        <p className="text-muted-foreground">+254 758 789 902</p>
+                        <p className="text-muted-foreground">+61 411 507 375</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
@@ -112,8 +113,9 @@ const Contact = () => {
                       </div>
                       <div>
                         <h4 className="font-bold uppercase text-sm mb-1">Location</h4>
-                        <p className="text-muted-foreground">Nairobi, Kenya</p>
-                        <p className="text-muted-foreground">East Africa</p>
+                        <p className="text-muted-foreground">Africa</p>
+                        <p className="text-muted-foreground">United States of America</p>
+                        <p className="text-muted-foreground">Australia</p>
                       </div>
                     </div>
                   </div>
