@@ -113,31 +113,11 @@ const Community = () => {
                 Community posts from our Instagram. Tag us to get featured!
               </p>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
               {instagramPosts.map((post) => (
-                <a 
-                  key={post.id} 
-                  href={post.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative aspect-square overflow-hidden bg-background border border-border hover:border-accent transition-colors"
-                >
-                  <img 
-                    src={post.image}
-                    alt={`Community post ${post.id}`}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
-                    <div className="flex items-center gap-1 text-white">
-                      <Heart className="h-5 w-5" />
-                      <span className="text-sm font-medium">{post.likes}</span>
-                    </div>
-                    <div className="flex items-center gap-1 text-white">
-                      <MessageCircle className="h-5 w-5" />
-                      <span className="text-sm font-medium">{post.comments}</span>
-                    </div>
-                  </div>
-                </a>
+                <div key={post.id} className="overflow-hidden">
+                  <InstagramEmbed postUrl={post.url} />
+                </div>
               ))}
             </div>
             <div className="text-center">
