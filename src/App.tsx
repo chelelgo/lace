@@ -8,7 +8,6 @@ import ScrollToTop from "@/components/ScrollToTop";
 import Index from "./pages/Index";
 import Checkout from "./pages/Checkout";
 import About from "./pages/About";
-import Events from "./pages/Events";
 import Shop from "./pages/Shop";
 import Community from "./pages/Community";
 import Contact from "./pages/Contact";
@@ -36,7 +35,6 @@ const AppContent = () => {
         <Route path="/" element={<Index />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/about" element={<About />} />
-        <Route path="/events" element={<Events />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/community" element={<Community />} />
         <Route path="/contact" element={<Contact />} />
